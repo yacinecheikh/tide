@@ -1,0 +1,16 @@
+tips:
+-use init() and quit()
+(do not use the wrapper from curses)
+-use getch() and check null-results with == curses.ERR
+
+
+colors: see color.py, init()
+to get specs:
+curses.
+  has_colors(): allows start_color()
+  can_change_color(): allows init_color()
+  has_extended_color_support(): > 256 color pair
+  COLORS
+  COLOR_PAIRS                                           
+  use_default_colors(): can handle transparency (not use
+d in termux)
