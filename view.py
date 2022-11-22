@@ -8,6 +8,8 @@ class Display:
         self.screen = screen
         self.cache = []
 
+    # TODO: change api use in ast.py
+
     def add(self, x, y, text, style = None):
         pass
 
@@ -24,14 +26,15 @@ class Display:
 
 
 class Camera:
-    def __init__(self, display):
+    def __init__(self, display, x = 0, y = 0):
         self.display = display
-        self.x = 0
-        self.y = 0
+        self.x = x
+        self.y = y
 
 
     def move(self, x, y):
-        pass
+        self.x = x
+        self.y = y
 
     def update(self):
         # text outside the screen will not be displayed

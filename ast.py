@@ -162,19 +162,8 @@ class Node:
 # TODO: write nodes
 
 #TODO: later: add custom Node type support (ex: literals for linked lists, hashmap,...)
-#TODO: replace long texts with a description (docstring)
-#TODO: add horizontal slider for out of screen text
-# -> GUI ?
-# -> can use Camera/Map wrappers
-# Display with infinite size and contains text
-# Camera which has a position ((0,0)) and can be moved
-# rendering: register with display, compute rendering with camera
-# encoding text display calls:
-# use a list of "writes" with position, text, style
-# when updating:
-# camera calls everything while trimming strings according to position and screen size
-# display cache is reset
-# screen is updated
+#TODO: auto-replace long texts with a description (docstring) when rendering
+#TODO: add moves for camera horizontal slider for out of screen text
 
 class Integer(Node):
     def __init__(self, value):
