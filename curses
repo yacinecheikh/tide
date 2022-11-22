@@ -2,6 +2,8 @@ tips:
 -use init() and quit()
 (do not use the wrapper from curses)
 -use getch() and check null-results with == curses.ERR
+(getkey raises an exception)
+(nodelay(True) makes getch non-blocking)
 
 
 colors: see color.py, init()
