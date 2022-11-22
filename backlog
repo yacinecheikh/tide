@@ -4,6 +4,17 @@ add shortcuts to move camera
 add event loop and use q to quit
 
 
+
+test left trimming and right trimming by moving camera
+
+
+
+
+
+
+
+
+
 later:
 -auto-replace rendering of complex or long expressions/blocks with simpler docstring
 -add custom node type support (ex: literals for arrays, linked lists, hash tables,...)

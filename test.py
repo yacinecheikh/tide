@@ -80,6 +80,7 @@ def main(screen):
     root.add(op)
 
     ast.render(display)
+    camera.move(0, 0)
     camera.update()
 
     screen.refresh()

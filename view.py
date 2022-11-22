@@ -33,8 +33,8 @@ class Camera:
 
 
     def move(self, x, y):
-        self.x = x
-        self.y = y
+        self.x += x
+        self.y += y
 
     def update(self):
         # text outside the screen will not be displayed
@@ -43,20 +43,24 @@ class Camera:
         w = curses.COLS
         h = curses.LINES
         for args in calls:
+            # tested for x < 0, x > w, y < 0
+            # y > 0 is hard to test on mobile
             x, y, text, *extra = args
             trim_left = self.x - x
-            # TODO: test both left and right
-            # TODO: convert x,y to absolute positions
-            # instead of using x - camera.x
+            trim_right = (x + len(text)) - (w + self.x)
+
             if trim_left > 0:
-                text = text[trim_left:]
-            trim_right = x + len(text) - w
+                x += trim_left
+                text = text[x:]
+
             if trim_right > 0:
-                text = text[:-1-trim_right]
+                text = text[:-trim_right]
             # y can just be checked (ok or not)
-            # multiline is done with multiple calls
-            if y >= self.y and y < h:
-                screen.addstr(y - self.y, x - self.x, text, *extra)
+            # screen coordinates
+            x -= self.x
+            y -= self.y
+            if y >= 0 and y < h:
+                screen.addstr(y, x, text, *extra)
 
 
 
