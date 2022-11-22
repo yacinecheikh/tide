@@ -1,0 +1,27 @@
+add shortcuts to move camera
+(horizontal and vertical sliders)
+
+add event loop and use q to quit
+
+
+later:
+-auto-replace rendering of complex or long expressions/blocks with simpler docstring
+-add custom node type support (ex: literals for arrays, linked lists, hash tables,...)
+-visual indicators like *, <-, numbers,... in different colors to indicate bookmarks
+(ex: write in red the bookmark id/number besides the first/middle line of the node)
+-> requires complex rendering instructions (multiple renderings per line)
+-> for now: cyan backgrounds for bookmark headers
+
+
+Node:
+-add optional footer along with headers
+-mix nodes and texts in children content
+
+
+bookmarks:
+behaviour:
+-erase previous bookmark when defining a new one
+-allow multiple bookmarks for organized numbered nodes
+(persistent and automated bookmarks)
+(local or unique bookmarks to navigate)
+(could be used like goto labels, not necessarily with numbers)

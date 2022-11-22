@@ -66,8 +66,7 @@ class Ast:
         self.selected.append(node)
 
     def bookmark(self, i, node):
-        # TODO: erase previous bookmarks when defining one ?
-        # coud use multiple bookmarks instead, and even auto-bookmarks (similar to goto labels)
+
         if key in self.bookmarks:
             self.bookmarks[key].bookmarked -= 1
         node.bookmarks += 1
@@ -104,8 +103,6 @@ class Node:
         self._text = None
         self.lines = []
 
-        # TODO: add footer/header ?
-        # alt: mix Text/Node in children (contents)
 
     @property
     def text(self):
@@ -132,11 +129,7 @@ class Node:
         if self.selected:
             return styles.cursor
 
-        if self.bookmarks:  # TODO: should add a colored star or something
-            # todo: colored bookmark number in red on first line
-            # requires: concatenated texts with styles, taking indent and line lengths into account
-
-            # for now: cyan background
+        if self.bookmarks:
             return styles.bookmark
 
 
@@ -161,9 +154,6 @@ class Node:
 
 # TODO: write nodes
 
-#TODO: later: add custom Node type support (ex: literals for linked lists, hashmap,...)
-#TODO: auto-replace long texts with a description (docstring) when rendering
-#TODO: add moves for camera horizontal slider for out of screen text
 
 class Integer(Node):
     def __init__(self, value):
