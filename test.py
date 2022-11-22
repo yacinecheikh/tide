@@ -42,6 +42,7 @@ try:
     from ast import Note, Integer, Operation
     from ast import Ast, Node
     import styles
+    from view import Display, Camera
 except Exception as e:
     quit(screen)
     raise e
@@ -50,10 +51,6 @@ except Exception as e:
 def main(screen):
     screen.clear()
 
-    """
-    with open('log', 'w') as f:
-        f.write(curses.has!-
-    """
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
 
     """
@@ -62,6 +59,8 @@ def main(screen):
         sticky
         print
     """
+
+    display = Display(screen)
 
     root = Node()
     ast = Ast(root)
@@ -81,29 +80,13 @@ def main(screen):
 
     ast.render(screen)
 
-    """
-    attr = pair(black, green)
-    screen.addstr(3, 2, "test", attr)
-    attr = pair(blue, red)
-    screen.addstr(4, 2, repr(curses.color_content(curses.COLOR_BLACK)), attr)
-    """
-    #subscreen = curses.newwin(20, 20, 1, 1)
-    #subscreen.addstr(0,0, "subscreen")
-
     screen.refresh()
-    #for i in range(100):
-    #    curses.init_pair(
     while True:
         ch = screen.getch()
         if ch != curses.ERR:
             break
 
         screen.refresh()
-
-    # getch vs getkey:
-    # getkey raises exception when no key is found
-    # nodelay(True) ensures getch is non-blocking
-
 
 try:
     main(screen)
