@@ -6,7 +6,7 @@ class Display:
         self.screen = screen
         self.cache = []
 
-    def add(self, x, y, text, style = None):
+    def addstr(self, x, y, text, style = None):
         call = [x, y, text]
         if style is not None:
             call.append(style)
