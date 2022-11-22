@@ -61,6 +61,7 @@ def main(screen):
     """
 
     display = Display(screen)
+    camera = Camera(display)
 
     root = Node()
     ast = Ast(root)
@@ -78,7 +79,8 @@ def main(screen):
     op = Operation('+', n, m)
     root.add(op)
 
-    ast.render(screen)
+    ast.render(display)
+    camera.update()
 
     screen.refresh()
     while True:

@@ -1,3 +1,5 @@
+import curses
+
 #from interpreter import get, define
 
 
@@ -24,12 +26,16 @@ class Camera:
         self.x = 0
         self.y = 0
 
+
+    def move(self, x, y):
+        pass
+
     def update(self):
         # text outside the screen will not be displayed
         # to move the camera, clear the screen and render everything once again
         screen, calls = self.display.update()
-        w = screen.COLS
-        h = screen.LINES
+        w = curses.COLS
+        h = curses.LINES
         for args in calls:
             x, y, text, *extra = args
             trim_left = self.x - x
