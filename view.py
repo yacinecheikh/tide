@@ -8,7 +8,10 @@ class Display:
         self.screen = screen
         self.cache = []
 
-    def addstr(self, x, y, text, style = None):
+    def add(self, x, y, text, style = None):
+        pass
+
+    def addstr(self, y, x, text, style = None):
         call = [x, y, text]
         if style is not None:
             call.append(style)
