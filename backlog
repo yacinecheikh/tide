@@ -1,13 +1,11 @@
 add shortcuts to move camera
 (horizontal and vertical sliders)
 
-add event loop and use q to quit
 
 
 
-test left trimming and right trimming by moving camera
 
-
+camera: link to screen.update()
 
 
 

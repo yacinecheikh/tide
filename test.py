@@ -83,11 +83,17 @@ def main(screen):
     camera.move(0, 0)
     camera.update()
 
-    screen.refresh()
-    while True:
+    running = True
+    while running:
         ch = screen.getch()
         if ch != curses.ERR:
-            break
+            root.add(Note(chr(ch)))
+
+        if ch == ord('q'):
+            running = False
+        
+        ast.render(display)
+        camera.update()
 
         screen.refresh()
 
