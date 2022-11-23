@@ -36,7 +36,7 @@ class Camera:
         self.x += x
         self.y += y
 
-    def update(self):
+    def update_view(self):
         # text outside the screen will not be displayed
         # to move the camera, clear the screen and render everything once again
         screen, calls = self.display.update()
@@ -61,6 +61,7 @@ class Camera:
             y -= self.y
             if y >= 0 and y < h:
                 screen.addstr(y, x, text, *extra)
+        screen.refresh()
 
 
 

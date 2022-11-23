@@ -79,9 +79,7 @@ def main(screen):
     op = Operation('+', n, m)
     root.add(op)
 
-    ast.render(display)
-    camera.move(0, 0)
-    camera.update()
+    #camera.move(0, 0)
 
     running = True
     while running:
@@ -93,9 +91,8 @@ def main(screen):
             running = False
         
         ast.render(display)
-        camera.update()
+        camera.update_view()
 
-        screen.refresh()
 
 try:
     main(screen)

@@ -2,10 +2,10 @@ add shortcuts to move camera
 (horizontal and vertical sliders)
 
 
+add App class to give a control reference for shortcuts
 
 
 
-camera: link to screen.update()
 
 
 
