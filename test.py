@@ -48,50 +48,64 @@ except Exception as e:
     raise e
 
 
+class App:
+    '''
+    Singleton antipattern
+
+    needed to give control over the application from the key binding callbacks
+
+    also used in video games
+    '''
+    def __init__(self, screen):
+        self.screen = screen
+        self.display = Display(screen)
+        self.view = Camera(self.display)
+
+    def run(self):
+        self.running = True
+        self.screen.clear()
+        
+        root = Node()
+        ast = Ast(root)
+        root.text = 'body:'
+        loop = Node()
+        loop.text = 'loop:'
+        loop.add(Note('sticky'))
+        instruction = Node()
+        instruction.text = 'print'
+        loop.add(instruction)
+        root.add(loop)
+        n = Integer(38)
+        m = Integer(48)
+        op = Operation('+', n, m)
+        root.add(op)
+
+        self.view.move(0, 0)
+
+
+        while self.running:
+            ch = self.screen.getch()
+            if ch != curses.ERR:
+                root.add(Note(chr(ch)))
+            if ch == curses.KEY_UP:
+                self.view.move(0, -1)
+            if ch == curses.KEY_DOWN:
+                self.view.move(0, 1)
+            if ch == curses.KEY_LEFT:
+                pass
+            if ch == ord('q'):
+                self.running = False
+
+            ast.render(self.display)
+            self.view.update_view()
+
+
+
 def main(screen):
-    screen.clear()
+
+    App(screen).run()
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
-
-    """
-    body:
-      loop:
-        sticky
-        print
-    """
-
-    display = Display(screen)
-    camera = Camera(display)
-
-    root = Node()
-    ast = Ast(root)
-    root.text = 'body:'
-    loop = Node()
-    loop.text = 'loop:'
-    note = Note('sticky')
-    loop.add(note)
-    instruction = Node()
-    instruction.text = 'print'
-    loop.add(instruction)
-    root.add(loop)
-    n = Integer(38)
-    m = Integer(48)
-    op = Operation('+', n, m)
-    root.add(op)
-
-    #camera.move(0, 0)
-
-    running = True
-    while running:
-        ch = screen.getch()
-        if ch != curses.ERR:
-            root.add(Note(chr(ch)))
-
-        if ch == ord('q'):
-            running = False
-        
-        ast.render(display)
-        camera.update_view()
 
 
 try:
