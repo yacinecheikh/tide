@@ -83,6 +83,11 @@ class App:
         self.view.move(0, 0)
 
 
+        self.screen.clear()
+        ast.render(self.display)
+        self.view.update_view()
+
+
         while self.running:
             ch = self.screen.getch()
             if ch != curses.ERR:
@@ -96,8 +101,17 @@ class App:
             if ch == ord('q'):
                 self.running = False
 
+            """
+            self.screen.clear()
+
             ast.render(self.display)
             self.view.update_view()
+            """
+            if ch != curses.ERR:
+                # event-based refresh
+                self.screen.clear()
+                ast.render(self.display)
+                self.view.update_view()
 
 
 

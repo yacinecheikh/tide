@@ -5,6 +5,11 @@ add shortcuts to move camera
 add App class to give a control reference for shortcuts
 
 
+link AST object to display
+(render(0,0)
+
+
+add render() method in app
 
 
 
