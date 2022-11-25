@@ -5,13 +5,7 @@ add shortcuts to move camera
 add App class to give a control reference for shortcuts
 
 
-link AST object to display
-(render(0,0)
-
-
-add render() method in app
-
-
+add delays and try to remake the refresh loop at 10/30/60 fps
 
 
 

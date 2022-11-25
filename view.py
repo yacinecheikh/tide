@@ -4,14 +4,18 @@ import curses
 
 
 class Display:
-    def __init__(self, screen):
+    def __init__(self, screen, element):
         self.screen = screen
+        self.element = element
         self.cache = []
 
     # TODO: change api use in ast.py
 
     def add(self, x, y, text, style = None):
-        pass
+        if style is not None:
+            self.cache.append((x, y, text, style))
+        else:
+            self.cache.append((x, y, text))
 
     def addstr(self, y, x, text, style = None):
         call = [x, y, text]
@@ -20,6 +24,7 @@ class Display:
         self.cache.append(call)
 
     def update(self):
+        self.element.render(self)
         calls = self.cache
         self.cache = []
         return self.screen, calls
@@ -36,7 +41,7 @@ class Camera:
         self.x += x
         self.y += y
 
-    def update_view(self):
+    def update(self):
         # text outside the screen will not be displayed
         # to move the camera, clear the screen and render everything once again
         screen, calls = self.display.update()

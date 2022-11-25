@@ -139,7 +139,7 @@ class Node:
     def render(self, screen, x = 0, y = 0):
         c = 0
         for line in self.lines:
-            screen.addstr(y + c, x, line, self.style)
+            screen.add(x, y + c, line, self.style)
             c += 1
         for child in self.children:
             c += child.render(screen, x + s.indent, y + c)
@@ -181,7 +181,7 @@ class Note(Node):
 
     def render(self, screen, x, y):
         for i, line in enumerate(self.lines):
-            screen.addstr(y + i, x, line, self.style)
+            screen.add(x, y + i, line, self.style)
         return i + 1
 
 

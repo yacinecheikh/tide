@@ -58,15 +58,24 @@ class App:
     '''
     def __init__(self, screen):
         self.screen = screen
-        self.display = Display(screen)
-        self.view = Camera(self.display)
+
+
+    def render(self):
+        self.display.update()
+        self.screen.clear()
+        self.view.update()
 
     def run(self):
         self.running = True
-        self.screen.clear()
         
         root = Node()
         ast = Ast(root)
+        self.display = Display(self.screen, ast)
+        self.view = Camera(self.display)
+        self.view.move(0, 0)
+
+
+        # AST init code
         root.text = 'body:'
         loop = Node()
         loop.text = 'loop:'
@@ -80,12 +89,9 @@ class App:
         op = Operation('+', n, m)
         root.add(op)
 
-        self.view.move(0, 0)
 
 
-        self.screen.clear()
-        ast.render(self.display)
-        self.view.update_view()
+        self.render()
 
 
         while self.running:
@@ -101,17 +107,9 @@ class App:
             if ch == ord('q'):
                 self.running = False
 
-            """
-            self.screen.clear()
-
-            ast.render(self.display)
-            self.view.update_view()
-            """
             if ch != curses.ERR:
                 # event-based refresh
-                self.screen.clear()
-                ast.render(self.display)
-                self.view.update_view()
+                self.render()
 
 
 
