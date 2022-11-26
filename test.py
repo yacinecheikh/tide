@@ -1,4 +1,6 @@
 import curses
+from datetime import datetime
+from time import sleep, time
 
 
 
@@ -62,8 +64,12 @@ class App:
 
     def render(self):
         self.display.update()
-        self.screen.clear()
+        self.screen.erase()
         self.view.update()
+
+
+    def update(self, ch, elapsed):
+        pass
 
     def run(self):
         self.running = True
@@ -89,27 +95,46 @@ class App:
         op = Operation('+', n, m)
         root.add(op)
 
+        framerate = Note('')
+        root.add(framerate)
+
 
 
         self.render()
 
+        dt = 1 / 60
+        old = time()
+
 
         while self.running:
+            # lower framerate
+            # basic implementation
+            t = time()
+            elapsed = t - old
+            old = t
+
+            if elapsed < dt:
+                sleep(dt - elapsed)
+                elapsed = dt
+
             ch = self.screen.getch()
-            if ch != curses.ERR:
-                root.add(Note(chr(ch)))
+
             if ch == curses.KEY_UP:
                 self.view.move(0, -1)
-            if ch == curses.KEY_DOWN:
+            elif ch == curses.KEY_DOWN:
                 self.view.move(0, 1)
-            if ch == curses.KEY_LEFT:
-                pass
-            if ch == ord('q'):
+            elif ch == curses.KEY_RIGHT:
+                self.view.move(1, 0)
+            elif ch == curses.KEY_LEFT:
+                self.view.move(-1, 0)
+            elif ch == ord('q'):
                 self.running = False
+            elif ch != curses.ERR:
+                root.add(Note(chr(ch)))
+            framerate.text = str(1 / elapsed)
 
-            if ch != curses.ERR:
-                # event-based refresh
-                self.render()
+            self.update(ch, elapsed)
+            self.render()
 
 
 

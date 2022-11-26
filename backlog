@@ -2,10 +2,7 @@ add shortcuts to move camera
 (horizontal and vertical sliders)
 
 
-add App class to give a control reference for shortcuts
-
-
-add delays and try to remake the refresh loop at 10/30/60 fps
+write key bindings interpreter
 
 
 
@@ -33,3 +30,12 @@ behaviour:
 (persistent and automated bookmarks)
 (local or unique bookmarks to navigate)
 (could be used like goto labels, not necessarily with numbers)
+
+
+
+
+
+
+
+done:
+add delays and try to remake the refresh loop at 10/30/60 fps
