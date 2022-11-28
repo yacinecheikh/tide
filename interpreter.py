@@ -1,3 +1,4 @@
+import curses
 from typing import Callable
 
 from ast import Note
@@ -40,6 +41,11 @@ def break_sequence(app, seq):
 default_shortcuts = {
     curses.KEY_UP: slide_up,
     ord('q'): quit_app,
+
+
+    'd': {
+        'p': lambda app, seq: print('debug print test')
+    }
 }
 
 
@@ -65,6 +71,10 @@ class Interpreter:
     def define(self, seq, callback):
         current_level = self.bindings
         for i, ch in enumerate(seq[:-1]):
+            if isinstance(ch, str):
+                # auto-convert from chr to ord
+                # using ord() integers allows using curses special key constants
+                ch = ord(ch)
             if isinstance(current_level.get(ch), Callable):
                 # already defined -> keep track of previous bindings for later real time tests
                 self.overrides.append((seq[i:], current_level[ch]))
@@ -102,57 +112,4 @@ class Interpreter:
 
 
 
-"""
-def define(bindings, sequence, callback):
-    current = bindings
-    for ch in sequence[:-1]:
-        if current.get(ch) is None:
-            current[ch] = {}
-        current = current[ch]
-    ch = sequence[-1]
-    if isinstance(current[ch], dict):
-        raise ValueError('has to erase existing shortcuts to define new one at char ' + ch + ' in ' + sequence)
-
-    current[ch] = callback
-
-
-def get(bindings, sequence):
-    for ch in sequence:
-        if bindings.get(ch) is None:
-            return None
-        if isinstance(bindings[ch], dict):
-            bindings = bindings[ch]
-        else:
-            return bindings[ch]
-
-"""
-
-
 #define({}, 'dp', lambda: print('debug print test')
-
-"""
-def interpret(bindings, key, state=None):
-    state = state or bindings
-    pass
-
-"""
-
-
-#def interpret(bindings, state, key):
-    """results:
-    True if nested binding is accepted
-    False if binding has no meaning
-    Callable if shortcut has be completed
-    """
-    """
-    if key in state:
-        state = state[key]
-        if isinstance(state, Callable):
-            return bindings, state
-        else:
-            return state, True
-    else:
-        state = bindings
-        return state, False
-    """
-
