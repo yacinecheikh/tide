@@ -45,6 +45,8 @@ try:
     from ast import Ast, Node
     import styles
     from view import Display, Camera
+
+    from interpreter import Interpreter
 except Exception as e:
     quit(screen)
     raise e
