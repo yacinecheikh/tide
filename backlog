@@ -2,10 +2,16 @@ add shortcuts to move camera
 (horizontal and vertical sliders)
 
 
-write key bindings interpreter
+use key binding interpreter
 
 
 
+HUD outside of AST
+(ex: framerate watcher top right of the screen)
+(currently impossible since Display can only display 1 element and AST takes the main spot with (0, 0))
+(ex: notifications toasts)
+
+DOM-like text+children mixing
 
 
 

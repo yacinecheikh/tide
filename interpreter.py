@@ -45,20 +45,15 @@ default_shortcuts = {
 
     'd': {
         'p': lambda app, seq: print('debug print test')
-    }
+    },
+    'dp': lambda app, seq: print('debug 2')
 }
 
 
-"""
-def define(bindings, sequence, callback):
-    pass
-
-def event(bindings, state, key):
-    pass
-"""
 
 
 
+# TODO: test everything
 class Interpreter:
     def __init__(self, app):
         self.app = app
@@ -104,9 +99,20 @@ class Interpreter:
             self.bindings['bread-sequence'](self.sequence)
             self.sequence = []
 
-    def load(self, d, sequence_head=''):
+    def load(self, d, sequence_head=[]):
         for key, value in d.items():
-            pass
+            if isinstance(key, str) and len(key) > 1:
+                # compact notation (multi-char string)
+                sequence_head.extend(key)
+            else:
+                # str or integer, handled by define()
+                sequence_head.append(key)
+            if isinstance(value, Callable):
+                self.define(sequence_head, value)
+            elif isinstance(value, dict):
+                self.load(value, sequence_head)
+            sequence_head.pop()
+    
 
 
 
