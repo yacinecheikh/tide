@@ -47,6 +47,7 @@ try:
     from view import Display, Camera
 
     from interpreter import Interpreter
+    from bindings import default as default_bindings
 except Exception as e:
     quit(screen)
     raise e
@@ -75,6 +76,9 @@ class App:
 
     def run(self):
         self.running = True
+
+        self.key_interpreter = Interpreter(self)
+        self.key_interpreter.load(default_bindings)
         
         root = Node()
         ast = Ast(root)
@@ -121,17 +125,8 @@ class App:
 
             ch = self.screen.getch()
 
-            if ch == curses.KEY_UP:
-                self.view.move(0, -1)
-            elif ch == curses.KEY_DOWN:
-                self.view.move(0, 1)
-            elif ch == curses.KEY_RIGHT:
-                self.view.move(1, 0)
-            elif ch == curses.KEY_LEFT:
-                self.view.move(-1, 0)
-            elif ch == ord('q'):
-                self.running = False
-            elif ch != curses.ERR:
+            if ch != curses.ERR:
+                self.key_interpreter.execute(ch)
                 root.add(Note(chr(ch)))
             framerate.text = str(1 / elapsed)
 

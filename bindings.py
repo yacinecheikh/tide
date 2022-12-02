@@ -16,5 +16,5 @@ default = {
         'p': default,
     },
 
-    'dd': break_sequence,
+    'dd': default,
 }

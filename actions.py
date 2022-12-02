@@ -21,12 +21,12 @@ def quit_app(app):
 def default(app):
     "called when no shortcut exists yet"
     ch = app.key_interpreter.sequence[0]
-    app.display.element.add(Note(ch))
+    app.display.element.root.add(Note(str(ch)))
 
 
-def break_sequence(app, seq):
+def break_sequence(app):
     "called when a sequence is cut by an undefined character"
     seq = app.key_interpreter.sequence
-    app.display.element.add(Note(str(seq) + ' not found'))
+    app.display.element.root.add(Note(str(seq) + ' not found'))
 
 
