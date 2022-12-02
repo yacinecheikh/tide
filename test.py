@@ -113,8 +113,7 @@ class App:
 
 
         while self.running:
-            # lower framerate
-            # basic implementation
+            # slow framerate down to 1/dt
             t = time()
             elapsed = t - old
             old = t

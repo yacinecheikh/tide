@@ -7,7 +7,6 @@ from actions import break_sequence
 
 
 
-# TODO: test everything
 class Interpreter:
     """
     stores bindings in a Trie
@@ -71,8 +70,6 @@ class Interpreter:
             else:
                 sequence_head.append(key)
                 prefix_length = 1
-            # len(key) can be 1 or more
-            # (support for compact notation)
             if isinstance(value, Callable):
                 self.define(sequence_head, value)
             elif isinstance(value, dict):
@@ -81,8 +78,3 @@ class Interpreter:
                 sequence_head.pop()
     
 
-
-
-
-
-#define({}, 'dp', lambda: print('debug print test')
