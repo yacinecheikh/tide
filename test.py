@@ -45,9 +45,8 @@ try:
     from ast import Ast, Node
     import styles
     from view import Display, Camera
+    from states.editor import Editor
 
-    from interpreter import Interpreter
-    from bindings import default as default_bindings
 except Exception as e:
     quit(screen)
     raise e
@@ -63,31 +62,36 @@ class App:
     '''
     def __init__(self, screen):
         self.screen = screen
+        self.display = Display(screen)
+        self.view = Camera(self.display)
+        #self.view.move(0, 0)
+        #self.screen = screen
+        self.statestack = []
+        self.state = None
+        self.running = False
+
+
+
+    def getch(self):
+        "wrapper for curses.screen.getch()"
+        ch = self.screen.getch()
+        if ch == curses.ERR:
+            return None
+        return ch
 
 
     def render(self):
-        self.display.update()
         self.screen.erase()
+        self.state.render()
         self.view.update()
 
-
-    def update(self, ch, elapsed):
-        pass
-
-    def run(self):
+    def run(self, state):
+        self.state = Editor(self)
         self.running = True
-
-        self.key_interpreter = Interpreter(self)
-        self.key_interpreter.load(default_bindings)
-        
-        root = Node()
-        ast = Ast(root)
-        self.display = Display(self.screen, ast)
-        self.view = Camera(self.display)
-        self.view.move(0, 0)
 
 
         # AST init code
+        """
         root.text = 'body:'
         loop = Node()
         loop.text = 'loop:'
@@ -103,6 +107,7 @@ class App:
 
         framerate = Note('')
         root.add(framerate)
+        """
 
 
 
@@ -122,21 +127,17 @@ class App:
                 sleep(dt - elapsed)
                 elapsed = dt
 
-            ch = self.screen.getch()
-
-            if ch != curses.ERR:
-                self.key_interpreter.execute(ch)
-                root.add(Note(chr(ch)))
-            framerate.text = str(1 / elapsed)
-
-            self.update(ch, elapsed)
+            self.state.update(elapsed)
+            self.state.render()
             self.render()
+
 
 
 
 def main(screen):
 
-    App(screen).run()
+    app = App(screen)
+    app.run(Editor(app))
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
 

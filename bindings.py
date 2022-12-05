@@ -3,7 +3,7 @@ from curses import KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
 from actions import *
 
 
-default = {
+base = {
     KEY_UP: slide_up,
     KEY_DOWN: slide_down,
     KEY_LEFT: slide_left,
@@ -13,8 +13,13 @@ default = {
 
     # test forms
     'd': {
-        'p': default,
+        'p': default, # default action
     },
 
     'dd': default,
 }
+
+editor = { **base,
+    'ic': insert_comment,
+}
+

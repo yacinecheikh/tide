@@ -1,6 +1,30 @@
 from ast import Note
 
 
+# special actions
+
+def default(app):
+    "called when no shortcut exists yet"
+    ch = app.state.keyboard.sequence[0]
+    # can only be called when in editor state
+    app.state.ast.root.add(Note(str(ch)))
+
+
+def break_sequence(app):
+    "called when a sequence is cut by an undefined character"
+    seq = app.state.keyboard.sequence
+    chars = []
+    for ch in seq:
+        if 97 <= ch <= 122:
+            chars.append(chr(ch))
+        else:
+            chars.append(ch)
+    app.state.ast.root.add(Note(str(chars) + ' not found'))
+
+
+
+
+# camera
 
 def slide_right(app):
     app.view.move(1, 0)
@@ -18,15 +42,35 @@ def quit_app(app):
     app.running = False
 
 
-def default(app):
-    "called when no shortcut exists yet"
-    ch = app.key_interpreter.sequence[0]
-    app.display.element.root.add(Note(str(ch)))
+# moving in editor
+
+def move_right(app):
+    cursors = app.state.ast.selected
+    for node in cursors:
+        app.state.ast.unselect(node)
+        if len(node.children):
+            app.state.ast.select(node.children[0])
+        else:
+            app.state.ast.select(node)
 
 
-def break_sequence(app):
-    "called when a sequence is cut by an undefined character"
-    seq = app.key_interpreter.sequence
-    app.display.element.root.add(Note(str(seq) + ' not found'))
+def move_left(app):
+    pass
 
+def move_up(app):
+    pass
+
+def move_down(app):
+    pass
+
+
+# editing
+def insert_comment(app):
+    editor = app.state
+    ast = editor.ast
+    for node in ast.selected:
+        note = Note()
+        node.add(note)
+        ast.unselect(node)
+        ast.select(note)
 

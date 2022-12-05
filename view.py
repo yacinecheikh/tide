@@ -4,12 +4,11 @@ import curses
 
 
 class Display:
-    def __init__(self, screen, element):
+    "virtual infinite screen"
+    def __init__(self, screen):
         self.screen = screen
-        self.element = element
+        #self.element = element
         self.cache = []
-
-    # TODO: change api use in ast.py
 
     def add(self, x, y, text, style = None):
         if style is not None:
@@ -17,20 +16,25 @@ class Display:
         else:
             self.cache.append((x, y, text))
 
+    # TODO: deprecate
     def addstr(self, y, x, text, style = None):
+        "mock for curses screen"
         call = [x, y, text]
         if style is not None:
             call.append(style)
         self.cache.append(call)
 
-    def update(self):
-        self.element.render(self)
+    def reset(self):
+        "return rendering calls"
         calls = self.cache
         self.cache = []
-        return self.screen, calls
+        return calls
+
+    #def clear(self):
 
 
 class Camera:
+    "view on display which renders text on screen"
     def __init__(self, display, x = 0, y = 0):
         self.display = display
         self.x = x
@@ -44,7 +48,9 @@ class Camera:
     def update(self):
         # text outside the screen will not be displayed
         # to move the camera, clear the screen and render everything once again
-        screen, calls = self.display.update()
+        screen = self.display.screen
+        calls = self.display.reset()
+
         w = curses.COLS
         h = curses.LINES
         for args in calls:
@@ -66,18 +72,13 @@ class Camera:
             y -= self.y
             if y >= 0 and y < h:
                 screen.addstr(y, x, text, *extra)
+
         screen.refresh()
 
 
 
 
 """
-class Editor:
-    def __init__(self):
-        pass
-
-
-
 class Screen:
     def __init__(self):
         self.bindings = {}

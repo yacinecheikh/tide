@@ -1,8 +1,26 @@
-add shortcuts to move camera
-(horizontal and vertical sliders)
+add non-ast rendering (notification/toasts,...)
 
 
+add shortcuts to select items and navigate in the AST
+(ex: enter to focus on root, wasd to move up/down or upper level/lower level
 
+add dom-like child+(text)element tree
+(to allow comments to have sub elements for instance)
+(main use case: mix text and nodes)
+
+(for now: let UI navigation for later, can override behaviour as needed)
+
+
+multi-view rendering:
+-widgets
+-subscreens for:
+file selector, auto-complete,... (substate inputs)
+(should handle most events by controlled redirection)
+
+
+add hook for multiple node rendering to display
+(ast is the main node, but not the only one)
+(should also support temporary nodes)
 
 HUD outside of AST
 (ex: framerate watcher top right of the screen)

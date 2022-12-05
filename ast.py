@@ -55,15 +55,19 @@ import settings as s
 
 
 class Ast:
-    def __init__(self, root):
+    def __init__(self, root = None):
         self.root = root
         self.selected = []
         self.bookmarks = {}
-        self.select(root)
+        #self.select(root)
 
     def select(self, node):
         node.selected = True
         self.selected.append(node)
+
+    def unselect(self, node):
+        self.selected.remove(node)
+        node.selected = False
 
     def bookmark(self, i, node):
 
@@ -72,8 +76,9 @@ class Ast:
         node.bookmarks += 1
         self.bookmark[key] = node
 
-    def render(self, screen):
-        self.root.render(screen, 0, 0)
+    def render(self, screen, x, y):
+        if self.root is not None:
+            self.root.render(screen, x, y)
 
     def generate(self):
         pass
@@ -124,6 +129,8 @@ class Node:
         self.enabled = False
 
     def format(self):
+        if self.selected:
+            return styles.cursor
         if self.enabled is False:
             return styles.disabled
         if self.selected:
@@ -174,7 +181,7 @@ class Operation(Node):
 
 class Note(Node):
     "True comments. Can be moved, disabled when not useful, or just read"
-    def __init__(self, note):
+    def __init__(self, note=''):
         super().__init__()
         self.text = note
         self.style = styles.comment
