@@ -1,4 +1,12 @@
 add non-ast rendering (notification/toasts,...)
+-> refactor: multiple screens (Display) to split the screen into menus
+(subscreens are maintainted by states, but interact with a main display)
+
+ex:
+-Display(screen)
+--menu(display, position, offset)
+(rendering: Camera will be merged with sub-displays -> first display is just a base for other displays to use)
+
 
 
 add shortcuts to select items and navigate in the AST
