@@ -45,7 +45,8 @@ try:
     from ast import Ast, Node
     import styles
     from view import Display, Camera
-    from states.editor import Editor
+    from screens.editor import Editor
+    from screens.windows import Windows
 
 except Exception as e:
     quit(screen)
@@ -62,8 +63,10 @@ class App:
     '''
     def __init__(self, screen):
         self.screen = screen
-        self.display = Display(screen)
-        self.view = Camera(self.display)
+        # Display should be used for scrollable subscreens
+        #self.display = Display(screen)
+        #self.view = Camera(self.display)
+
         #self.view.move(0, 0)
         #self.screen = screen
         self.statestack = []
@@ -83,10 +86,12 @@ class App:
     def render(self):
         self.screen.erase()
         self.state.render()
-        self.view.update()
+        self.screen.refresh()
+        #self.view.update()
 
     def run(self, state):
-        self.state = Editor(self)
+        #self.state = Editor(self)
+        self.state = state
         self.running = True
 
 
@@ -128,8 +133,9 @@ class App:
                 elapsed = dt
 
             self.state.update(elapsed)
+            self.screen.erase()
             self.state.render()
-            self.render()
+            self.screen.refresh()
 
 
 
@@ -137,7 +143,8 @@ class App:
 def main(screen):
 
     app = App(screen)
-    app.run(Editor(app))
+    app.run(Windows(app))
+    #app.run(Editor(app))
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
 

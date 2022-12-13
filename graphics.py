@@ -54,7 +54,7 @@ class ScreenWindow(WindowBase):
     "compatibility layer between curses screen and sub Window API"
     def __init__(self, screen):
         self.screen = screen
-        super().__init__(self, 0, 0, COLS, LINES)
+        super().__init__(0, 0, COLS, LINES)
 
     def write(self, x, y, text, style=None):
         text = self.trim(x, y, text)
