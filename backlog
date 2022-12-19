@@ -1,3 +1,11 @@
+graphical elements:
+-file menu (Node trees with directory and files)
+-auto-complete input (with a Trie or equivalent)
+-notification hub
+-terminal (command input/log)
+
+
+
 add non-ast rendering (notification/toasts,...)
 -> refactor: multiple screens (Display) to split the screen into menus
 (subscreens are maintainted by states, but interact with a main display)
