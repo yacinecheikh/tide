@@ -31,6 +31,12 @@ class WindowBase:
             text = text[:self.w - len(text) - x]
         return text
 
+    def resize(self, x, y, w, h):
+        self.x = x
+        self.y = y
+        self.w = w
+        self.h = h
+
 
 class Window(WindowBase):
     "Splittable subwindow. Can be placed with a Position() wrapper"
