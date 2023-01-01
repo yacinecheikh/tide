@@ -1,4 +1,4 @@
-from graphics import Window, ScreenWindow
+from controls import Window, ScreenWindow
 from math import ceil
 
 
