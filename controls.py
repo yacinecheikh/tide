@@ -212,6 +212,9 @@ class Text(Control):
 
 
 # TODO: rename to Container ?
+# use:
+# add Positionned(item, x, y) to the screen
+# keep reference to item to update later
 class Positioned:
     def __init__(self, control, x, y):
         self.content = control
