@@ -227,16 +227,9 @@ higher level controls (rely on Node, Text and Window)
 """
 
 
-class Menu(Node):
+class ItemList(Node):
     def __init__(self):
-        super().__init__(indent=0)
-
-    def add(self, control):
-        super().add(control)
-    
-    def render(self):
-        pass
-
+        super().__init__(indent = 0)
 
 
 class FileNav:
