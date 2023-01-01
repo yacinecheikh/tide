@@ -39,6 +39,7 @@ def quit(screen):
 
 screen = init()
 
+# some imports require curses to be loaded already
 try:
     from color import blue, red, green, black, color, pair
     from ast import Note, Integer, Operation

@@ -1,8 +1,17 @@
-graphical elements:
--file menu (Node trees with directory and files)
--auto-complete input (with a Trie or equivalent)
+
+control ideas:
+-Menu ? (item list)
+-PageMenu (multiple pages, but no key binding)
+-ChoiceMenu (meant to use indexes as hotkeys and paginate to use 0-9)
+-FileNav (file menu)
+-Display (dynamic text label)
+(framerate, command sequence input)
+-auto-complete input (with Trie or equivalent)
 -notification hub
--terminal (command input/log)
+-terminal (single-line?, to show command/sequence input/log)
+
+
+
 
 
 
