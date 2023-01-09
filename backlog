@@ -1,4 +1,9 @@
 
+
+fix activities/window_example.py to work with base Activity
+refactor Editor Activity
+
+
 control ideas:
 -Menu ? (item list)
 -PageMenu (multiple pages, but no key binding)
@@ -9,8 +14,6 @@ control ideas:
 -auto-complete input (with Trie or equivalent)
 -notification hub
 -terminal (single-line?, to show command/sequence input/log)
-
-
 
 
 

@@ -46,8 +46,8 @@ try:
     from ast import Ast, Node
     import styles
     from view import Display, Camera
-    from screens.editor import Editor
-    from screens.windows import Windows
+    from activities.editor import Editor
+    from activities.windows import Windows
 
 except Exception as e:
     quit(screen)

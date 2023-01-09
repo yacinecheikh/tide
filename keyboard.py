@@ -15,7 +15,7 @@ from actions import break_sequence
 
 
 
-class Interpreter:
+class KeyInterpreter:
     """
     stores bindings in a Trie
     State machine to interpret input characters

@@ -4,7 +4,7 @@ AST editor
 
 
 from ast import Ast, Node, Note
-from keyboard import Interpreter
+from keyboard import KeyInterpreter
 from bindings import editor as edit_bindings
 
 
@@ -13,7 +13,7 @@ class Editor:
         self.app = app
         self.ast = Ast()
 
-        self.keyboard = Interpreter(app)
+        self.keyboard = KeyInterpreter(app)
         self.keyboard.load(edit_bindings)
 
 

@@ -1,88 +1,16 @@
-#import curses
-from curses import COLS, LINES
-
-
 import styles
 import settings
+
+
+from ui import Window, Control
 
 #from color import pair, grey, lightgrey, black, white
 #import color as c
 
 
-# this interface is also implemented by Text
-class Control:
-    "any graphical element which can be updated over time and rendered on a screen at coordinates (x,y)"
-    def update(self, dt):
-        pass
-
-    def render(self, display, x, y):
-        pass
-
-
-"""
-Window API
-Used to split the screen or distinguish areas
-"""
-
-
-class WindowBase:
-    def __init__(self, x, y, w, h):
-        self.x = x
-        self.y = y
-        self.w = w
-        self.h = h
-
-    def trim(self, x, y, text) -> str:
-        if y < 0 or y > self.w:
-            return ''
-        if x < 0:
-            text = text[x:]
-            x = 0
-        if x + len(text) > self.w:
-            text = text[:self.w - len(text) - x]
-        return text
-
-    def resize(self, x, y, w, h):
-        self.x = x
-        self.y = y
-        self.w = w
-        self.h = h
-
-
-class Window(WindowBase):
-    "Splittable subwindow. Can be placed with a Position() wrapper"
-    def __init__(self, parent, x, y, w, h):
-        self.parent = parent
-        super().__init__(x, y, w, h)
-
-    def write(self, x, y, text, style=None):
-        # TODO: remove checks from parents after confirming subwindows are included in the dimensions of their parent
-        # (may reduce perfs later when scaling render calls)
-        text = self.trim(x, y, text)
-        if text:
-            x += self.x
-            y += self.y
-            self.parent.write(x, y, text, style)
-
-
-class ScreenWindow(WindowBase):
-    "compatibility layer between curses screen and sub Window API"
-    def __init__(self, screen):
-        self.screen = screen
-        super().__init__(0, 0, COLS, LINES)
-
-    def write(self, x, y, text, style=None):
-        text = self.trim(x, y, text)
-        if text:
-            if style:
-                self.screen.addstr(y, x, text, style)
-            else:
-                self.screen.addstr(y, x, text)
-
-
 """
 Core rendering primitives
-Nodes are used to make DOM-like structured data rendering
+Nodes are used for DOM-like structured data
 Texts contain formatted string rendering data, and are used to implement graphical descriptions of rendered objects
 """
 
@@ -204,23 +132,6 @@ class Text(Control):
         for line in self.lines:
             line.render(screen, x, y, self.style)
             y += 1
-
-
-"""
-
-"""
-
-
-# TODO: rename to Container ?
-# use:
-# add Positionned(item, x, y) to the screen
-# keep reference to item to update later
-class Positioned:
-    def __init__(self, control, x, y):
-        self.content = control
-
-    def render(self, screen):
-        self.content.render(screen, x, y)
 
 
 """
