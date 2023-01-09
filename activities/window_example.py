@@ -1,11 +1,12 @@
-from controls import Window, ScreenWindow
+from ui import Window, ScreenWindow
 from math import ceil
+from activities.base import Activity
 
 
-class Windows:
-    def __init__(self, app):
-        self.app = app
-        self.screen = ScreenWindow(app.screen)
+class Windows(Activity):
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.screen = ScreenWindow(self.app.screen)
 
         # template code for split coordinates
         x, y, w, h = 0, 0, self.screen.w // 2, self.screen.h // 2
@@ -26,9 +27,7 @@ class Windows:
         w = self.screen.w - self.bottomleft.w
         h = self.screen.h - self.topright.h
         self.bottomright = Window(self.screen, x, y, w, h)
-        
-    def update(self, dt):
-        pass    
+
 
     def render(self):
         # long enough to get trimmed by the subscreens
@@ -46,3 +45,4 @@ class Windows:
         self.bottomright.write(0, 0, abc)
         for i in range(self.bottomright.h):
             self.bottomright.write(0, i, abc[i])
+
