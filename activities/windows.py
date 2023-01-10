@@ -1,11 +1,13 @@
 from ui import Window, ScreenWindow
 from math import ceil
 from activities.base import Activity
+from bindings import base as bindings
 
 
 class Windows(Activity):
     def __init__(self, *args):
         super().__init__(*args)
+        self.keyboard.load(bindings)
         self.screen = ScreenWindow(self.app.screen)
 
         # template code for split coordinates

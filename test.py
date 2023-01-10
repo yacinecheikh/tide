@@ -144,8 +144,8 @@ class App:
 def main(screen):
 
     app = App(screen)
-    #app.run(Windows(app))
-    app.run(Editor(app))
+    app.run(Windows(app))
+    #app.run(Editor(app))
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
 

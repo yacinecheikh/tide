@@ -1,6 +1,7 @@
 
+move Display/Camera scrolling bindings to editor
+rewrite camera/display and write an exemple
 
-refactor Editor Activity
 
 
 control ideas:
