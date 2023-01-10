@@ -1,4 +1,5 @@
 from keyboard import KeyInterpreter
+from ui import ScreenWindow
 #from bindings import
 
 
@@ -8,6 +9,9 @@ class Activity:
         self.keyboard = KeyInterpreter(app)
         # boxed controls
         self.items = {}
+        # app.screen is the terminal screen
+        # activity.screen is a Window wrapper
+        self.screen = ScreenWindow(app.screen)
 
         """ # hook for auto-resize
         self.windows = {

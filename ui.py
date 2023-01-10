@@ -91,9 +91,12 @@ class Control:
 
 class Box:
     def __init__(self, display, x, y, control):
-        self.content = control
-        self.display = display
-        self.x, self.y = x, y
+        # avoid using __setattr__ before attributes exist
+        # oher solutions: https://stackoverflow.com/questions/17020115/how-to-use-setattr-correctly-avoiding-infinite-recursion
+        self.__dict__['content'] = control
+        self.__dict__['display'] = display
+        self.__dict__['x'] = x
+        self.__dict__['y'] = y
 
     def update(self, dt):
         self.content.update(dt)

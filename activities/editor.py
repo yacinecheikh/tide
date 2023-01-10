@@ -4,16 +4,16 @@ AST editor
 
 
 from ast import Ast, Node, Note
-from keyboard import KeyInterpreter
 from bindings import editor as edit_bindings
+from activities.base import Activity
+from ui import Window, Box
 
 
-class Editor:
-    def __init__(self, app):
-        self.app = app
+class Editor(Activity):
+    def __init__(self, *args):
+        super().__init__(*args)
         self.ast = Ast()
 
-        self.keyboard = KeyInterpreter(app)
         self.keyboard.load(edit_bindings)
 
 
@@ -24,9 +24,13 @@ class Editor:
         self.input = Note()
         root.add(self.framerate)
 
+
+
+        self.items['ast'] = Box(self.screen, 0, 0, self.ast)
+
     def render(self):
-        self.ast.render(self.app.display, 0, 0)
-        #app.render() does the actual rendering
+        #self.ast.render(self.window, 0, 0)
+        pass
 
     def update(self, dt):
         self.framerate.text = str(1 / dt)
