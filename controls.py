@@ -128,9 +128,9 @@ class Text(Control):
         self.lines[line].add(content)
 
 
-    def render(self, screen, x, y):
+    def render(self, display, x, y):
         for line in self.lines:
-            line.render(screen, x, y, self.style)
+            line.render(display, x, y, self.style)
             y += 1
 
 
