@@ -115,14 +115,14 @@ class Text(Control):
         # for now, Line is internal
         self.lines = []
         for line in text.split('\n'):
-            self.lines.append(Line(line))
+            self.lines.append(Text.Line(line))
 
     def add(self, content, line='append'):
         if line == 'append':
             line = len(self.lines)
 
         while line >= len(self.lines):
-            self.lines.append(Line())
+            self.lines.append(Text.Line())
 
         # content is str, (str, style) or (None, length)
         self.lines[line].add(content)
