@@ -34,4 +34,4 @@ class Activity:
         # TODO: support subwindows
         # -> use Boxes to use a window as screen and avoid explicit repetition when rendering
         for x in self.items.values():
-            x.render(self)
+            x.render()
