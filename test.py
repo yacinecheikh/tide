@@ -48,6 +48,7 @@ try:
     from view import Display, Camera
     from activities.editor import Editor
     from activities.windows import Windows
+    from activities.scroll import Scrollable
 
 except Exception as e:
     quit(screen)
@@ -71,7 +72,7 @@ class App:
         #self.view.move(0, 0)
         #self.screen = screen
         self.statestack = []
-        self.state = None
+        self.activity = None
         self.running = False
 
 
@@ -86,13 +87,13 @@ class App:
 
     def render(self):
         self.screen.erase()
-        self.state.render()
+        self.activity.render()
         self.screen.refresh()
         #self.view.update()
 
-    def run(self, state):
+    def run(self, activity):
         #self.state = Editor(self)
-        self.state = state
+        self.activity = activity
         self.running = True
 
 
@@ -133,9 +134,9 @@ class App:
                 sleep(dt - elapsed)
                 elapsed = dt
 
-            self.state.update(elapsed)
+            self.activity.update(elapsed)
             self.screen.erase()
-            self.state.render()
+            self.activity.render()
             self.screen.refresh()
 
 
@@ -144,8 +145,9 @@ class App:
 def main(screen):
 
     app = App(screen)
-    app.run(Windows(app))
+    #app.run(Windows(app))
     #app.run(Editor(app))
+    app.run(Scrollable(app))
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
 
