@@ -23,3 +23,7 @@ editor = { **base,
     'ic': insert_comment,
 }
 
+scroll = {
+    **base,
+}
+
