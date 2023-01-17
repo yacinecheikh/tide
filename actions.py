@@ -7,19 +7,20 @@ def default(app):
     "called when no shortcut exists yet"
     ch = app.state.keyboard.sequence[0]
     # can only be called when in editor state
-    app.state.ast.root.add(Note(str(ch)))
+    app.activity.ast.root.add(Note(str(ch)))
 
 
 def break_sequence(app):
     "called when a sequence is cut by an undefined character"
-    seq = app.state.keyboard.sequence
+    seq = app.activity.keyboard.sequence
     chars = []
     for ch in seq:
         if 97 <= ch <= 122:
             chars.append(chr(ch))
         else:
             chars.append(ch)
-    app.state.ast.root.add(Note(str(chars) + ' not found'))
+    # only applies to Editor activity
+    #app.activity.ast.root.add(Note(str(chars) + ' not found'))
 
 
 
@@ -45,13 +46,13 @@ def quit_app(app):
 # moving in editor
 
 def move_right(app):
-    cursors = app.state.ast.selected
+    cursors = app.activity.ast.selected
     for node in cursors:
         app.state.ast.unselect(node)
         if len(node.children):
-            app.state.ast.select(node.children[0])
+            app.activity.ast.select(node.children[0])
         else:
-            app.state.ast.select(node)
+            app.activity.ast.select(node)
 
 
 def move_left(app):
@@ -66,7 +67,7 @@ def move_down(app):
 
 # editing
 def insert_comment(app):
-    editor = app.state
+    editor = app.activity
     ast = editor.ast
     for node in ast.selected:
         note = Note()
