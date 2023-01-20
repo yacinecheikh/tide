@@ -4,10 +4,6 @@ from actions import *
 
 
 base = {
-    KEY_UP: slide_up,
-    KEY_DOWN: slide_down,
-    KEY_LEFT: slide_left,
-    KEY_RIGHT: slide_right,
     'q': quit_app,
 
 
@@ -25,5 +21,9 @@ editor = { **base,
 
 scroll = {
     **base,
+    KEY_UP: slide_up,
+    KEY_DOWN: slide_down,
+    KEY_LEFT: slide_left,
+    KEY_RIGHT: slide_right,
 }
 

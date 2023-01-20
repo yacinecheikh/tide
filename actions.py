@@ -25,19 +25,19 @@ def break_sequence(app):
 
 
 
-# camera
+# camera/window scrolling
 
 def slide_right(app):
-    app.view.move(1, 0)
+    app.activity.screen.move(1, 0)
 
 def slide_left(app):
-    app.view.move(-1, 0)
+    app.activity.screen.move(-1, 0)
 
 def slide_up(app):
-    app.view.move(0, -1)
+    app.activity.screen.move(0, -1)
 
 def slide_down(app):
-    app.view.move(0, 1)
+    app.activity.screen.move(0, 1)
 
 def quit_app(app):
     app.running = False

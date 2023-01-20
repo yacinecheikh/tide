@@ -17,7 +17,10 @@ class WindowBase:
         self.y = y
         self.w = w
         self.h = h
-        self.position = 0, 0
+
+        # offset/position
+        self.ox = 0
+        self.oy = 0
 
         # hook for auto-resizing
         # with the window and the existing sizes,
@@ -29,12 +32,11 @@ class WindowBase:
 
     # camera/screen scrolling
     def move(self, x, y):
-        # top-down camera-like offset
-        self.position = x, y
+        self.ox += x
+        self.oy += y
 
     def translate(self, x, y):
-        ox, oy = self.position
-        return x - ox, y - oy
+        return x - self.ox, y - self.oy
 
 
     # silent fail when rendering out of window
