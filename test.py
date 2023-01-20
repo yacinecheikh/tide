@@ -45,7 +45,7 @@ try:
     from ast import Note, Integer, Operation
     from ast import Ast, Node
     import styles
-    from view import Display, Camera
+    #from view import Display, Camera
     from activities.editor import Editor
     from activities.windows import Windows
     from activities.scroll import Scrollable

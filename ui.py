@@ -17,6 +17,7 @@ class WindowBase:
         self.y = y
         self.w = w
         self.h = h
+        self.position = 0, 0
 
         # hook for auto-resizing
         # with the window and the existing sizes,
@@ -25,6 +26,18 @@ class WindowBase:
         # can also store (wdw, x, y) to keep proportions
         self.subwindows = []
 
+
+    # camera/screen scrolling
+    def move(self, x, y):
+        # top-down camera-like offset
+        self.position = x, y
+
+    def translate(self, x, y):
+        ox, oy = self.position
+        return x - ox, y - oy
+
+
+    # silent fail when rendering out of window
     def trim(self, x, y, text) -> str:
         if y < 0 or y > self.w:
             return ''
@@ -35,6 +48,7 @@ class WindowBase:
             text = text[:self.w - len(text) - x]
         return text
 
+    # hook for auto resizing when the screen size changes
     def resize(self, x, y, w, h):
         self.x = x
         self.y = y
@@ -51,6 +65,10 @@ class Window(WindowBase):
     def write(self, x, y, text, style=None):
         # TODO: remove checks from parents after confirming subwindows are included in the dimensions of their parent
         # (may reduce perfs later when scaling render calls)
+        # as it is, as long as the window is included in its parents, trimming always ensures the written text fits in its parent
+        # fix: add write_nocheck()
+
+        x, y = self.translate(x, y)
         text = self.trim(x, y, text)
         if text:
             x += self.x
@@ -65,6 +83,7 @@ class ScreenWindow(WindowBase):
         super().__init__(0, 0, COLS, LINES)
 
     def write(self, x, y, text, style=None):
+        x, y = self.translate(x, y)
         text = self.trim(x, y, text)
         if text:
             if style:

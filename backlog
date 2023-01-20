@@ -1,6 +1,4 @@
-
-move Display/Camera scrolling bindings to editor
-rewrite camera/display and write an exemple
+write an exemple using the Window offset (position) attribute
 
 
 
