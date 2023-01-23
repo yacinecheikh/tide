@@ -39,16 +39,17 @@ class WindowBase:
         return x - self.ox, y - self.oy
 
 
-    # silent fail when rendering out of window
+    # silent fail when (partially) rendering out of window
     def trim(self, x, y, text) -> str:
         if y < 0 or y > self.w:
-            return ''
+            return x, ''
         if x < 0:
-            text = text[x:]
+            text = text[-x:]
             x = 0
-        if x + len(text) > self.w:
-            text = text[:self.w - len(text) - x]
-        return text
+        lastx = x + len(text)
+        if lastx > self.w:
+            text = text[:self.w - lastx]
+        return x, text
 
     # hook for auto resizing when the screen size changes
     def resize(self, x, y, w, h):
@@ -65,13 +66,15 @@ class Window(WindowBase):
         super().__init__(x, y, w, h)
 
     def write(self, x, y, text, style=None):
+        # checks from parents are required in order to take into account higher scale scrolling
+        
         # TODO: remove checks from parents after confirming subwindows are included in the dimensions of their parent
         # (may reduce perfs later when scaling render calls)
         # as it is, as long as the window is included in its parents, trimming always ensures the written text fits in its parent
         # fix: add write_nocheck()
 
         x, y = self.translate(x, y)
-        text = self.trim(x, y, text)
+        x, text = self.trim(x, y, text)
         if text:
             x += self.x
             y += self.y
@@ -89,7 +92,7 @@ class ScreenWindow(WindowBase):
 
     def write(self, x, y, text, style=None):
         x, y = self.translate(x, y)
-        text = self.trim(x, y, text)
+        x, text = self.trim(x, y, text)
         if text:
             if style:
                 self.screen.addstr(y, x, text, style)
