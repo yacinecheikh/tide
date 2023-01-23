@@ -77,6 +77,9 @@ class Window(WindowBase):
             y += self.y
             self.parent.write(x, y, text, style)
 
+    def write_raw(self, x, y, text, style):
+        self.parent.write_raw(x, y, text, style)
+
 
 class ScreenWindow(WindowBase):
     "compatibility layer between curses screen and sub Window API"
@@ -92,6 +95,9 @@ class ScreenWindow(WindowBase):
                 self.screen.addstr(y, x, text, style)
             else:
                 self.screen.addstr(y, x, text)
+
+    def write_raw(self, x, y, text, style):
+        self.screen.addstr(y, x, text, style)
 
 
 
