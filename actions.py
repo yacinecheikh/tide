@@ -43,8 +43,21 @@ def quit_app(app):
     app.running = False
 
 
-# moving in editor
 
+# moving cursor in menu nav
+
+def menunav_up(app):
+    app.activity.up()
+
+def menunav_down(app):
+    app.activity.down()
+
+def menunav_select(app):
+    app.activity.select()
+
+
+# moving in editor
+"""
 def move_right(app):
     cursors = app.activity.ast.selected
     for node in cursors:
@@ -63,7 +76,7 @@ def move_up(app):
 
 def move_down(app):
     pass
-
+"""
 
 # editing
 def insert_comment(app):

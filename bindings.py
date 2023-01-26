@@ -1,4 +1,4 @@
-from curses import KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT
+from curses import KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_ENTER
 
 from actions import *
 
@@ -27,3 +27,9 @@ scroll = {
     KEY_RIGHT: slide_right,
 }
 
+menu = {
+    **base,
+    KEY_UP: menunav_up,
+    KEY_DOWN: menunav_down,
+    KEY_ENTER: menunav_select,
+}
