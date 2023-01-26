@@ -199,11 +199,17 @@ class Menu(ItemList):
         return width, height
 
     def select(self):
-        pass
+        return self.children[i]
+
     def up(self):
-        pass
+        self.cursor += 1
+        if self.cursor >= len(self.children):
+            self.cursor = 0
+
     def down(self):
-        pass
+        self.cursor -= 1
+        if self.cursor < 0:
+            self.cursor = len(self.children) - 1
 
 
 class FileNav:

@@ -13,6 +13,8 @@ class MenuNav(Activity):
         menu = Menu()
         menu.add(Text('choice1'))
         menu.add(Text('choice2'))
+        menu.add(Text('choice3'))
+        menu.add(Text('choice4'))
         self.items['menu'] = Box(self.screen, 0, 0, menu)
 
         self.items['chosen'] = Box(self.screen, 0, 5, Text(''))
