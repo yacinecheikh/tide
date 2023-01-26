@@ -201,12 +201,12 @@ class Menu(ItemList):
     def select(self):
         return self.children[i]
 
-    def up(self):
+    def down(self):
         self.cursor += 1
         if self.cursor >= len(self.children):
             self.cursor = 0
 
-    def down(self):
+    def up(self):
         self.cursor -= 1
         if self.cursor < 0:
             self.cursor = len(self.children) - 1
