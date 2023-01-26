@@ -52,10 +52,20 @@ class Node(Control):
 
 
     def render(self, screen, x = 0, y = 0):
+        # w, h rendering
+        height = 0
+        width = 0
+        for item in self.children:
+            w, h = item.render(screen, x + self.indent, y + height)
+            height += h
+            width = max(w, width)
+        return width, height
+        """ # line-only rendering
         c = 0
         for item in self.children:
             c += item.render(screen, x + self.indent, y + c)
         return c
+        """
 
 
 class Text(Control):
@@ -102,6 +112,15 @@ class Text(Control):
                     screen.write(x, y, text, style)
                     x += len(text)
 
+            # width
+            return x
+
+    # TODO: constructor styles
+    # Text()
+    # Text(style = style)
+    # Text(multiline)
+    # Text((str1, style), (str2, style),...)
+
 
     def __init__(self, text: str, style=None):
         self.style = style or styles.default
@@ -129,9 +148,13 @@ class Text(Control):
 
 
     def render(self, display, x, y):
+        width = 0
+        height = 0
         for line in self.lines:
-            line.render(display, x, y, self.style)
-            y += 1
+            w = line.render(display, x, y, self.style)
+            width = max(width, w)
+            height += 1
+        return width, height
 
 
 """
@@ -144,6 +167,43 @@ higher level controls (rely on Node, Text and Window)
 class ItemList(Node):
     def __init__(self):
         super().__init__(indent = 0)
+    
+
+class Menu(ItemList):
+    "chosable items"
+    def __init__(self):
+        super().__init__()
+        self.callbacks = []
+        self.cursor = 0
+        self.cursor_text = Text(' <-')
+
+        self.text = None
+
+    def gentext(self):
+        # cursor after first line
+        # pb: elements cannot be converted to Text
+        # (especially if they change over time)
+        pass
+
+    def render(self, screen, x, y):
+        # w, h rendering
+        height = 0
+        width = 0
+        for i in range(len(self.children)):
+            item = self.children[i]
+            w, h = item.render(screen, x + self.indent, y + height)
+            if self.cursor == i:
+                self.cursor_text.render(screen, x + w + self.indent, y + height)
+            height += h
+            width = max(w, width)
+        return width, height
+
+    def select(self):
+        pass
+    def up(self):
+        pass
+    def down(self):
+        pass
 
 
 class FileNav:
