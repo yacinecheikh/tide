@@ -9,6 +9,11 @@ class MenuNav(Activity):
         super().__init__(*args)
 
         self.keyboard.load(bindings)
+        """
+        self.keyboard.define({
+            KEY_UP: menu.up, # self.up
+        })
+        """
 
         menu = Menu()
         menu.add(Text('choice1'))
@@ -16,8 +21,9 @@ class MenuNav(Activity):
         menu.add(Text('choice3'))
         menu.add(Text('choice4'))
         self.items['menu'] = Box(self.screen, 0, 0, menu)
+        default_choice = menu.children[0]
 
-        self.items['chosen'] = Box(self.screen, 0, 5, Text(''))
+        self.items['chosen'] = Box(self.screen, 12, 0, default_choice)
 
     def render(self):
         super().render()
