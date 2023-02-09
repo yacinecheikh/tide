@@ -31,5 +31,5 @@ menu = {
     **base,
     KEY_UP: menunav_up,
     KEY_DOWN: menunav_down,
-    KEY_ENTER: menunav_select,
+    '\n': menunav_select,
 }
