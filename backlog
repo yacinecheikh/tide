@@ -1,5 +1,8 @@
+add Control.placeat(screen, x, y) to Box Controls
+
+
 control ideas:
--Menu ? (item list)
+(with Menu done, and used as a base)
 -PageMenu (multiple pages, but no key binding)
 -ChoiceMenu (meant to use indexes as hotkeys and paginate to use 0-9)
 -FileNav (file menu)
