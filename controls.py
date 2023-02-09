@@ -199,7 +199,7 @@ class Menu(ItemList):
         return width, height
 
     def select(self):
-        return self.children[i]
+        return self.children[self.cursor]
 
     def down(self):
         self.cursor += 1
