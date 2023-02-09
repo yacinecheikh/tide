@@ -140,6 +140,11 @@ class App:
             self.activity.render()
             self.screen.refresh()
 
+    def log(self, msg):
+        with open('log', 'a') as f:
+            f.write(msg)
+            f.write('\n')
+
 
 
 
