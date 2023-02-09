@@ -9,6 +9,8 @@ class MenuNav(Activity):
         super().__init__(*args)
 
         self.keyboard.load(bindings)
+        # hook for custom key bindings
+        # instead of using the bindings.py module, local bindings can be set this way
         """
         self.keyboard.define({
             KEY_UP: menu.up, # self.up
