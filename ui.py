@@ -121,12 +121,18 @@ class Control:
 
 class Box:
     def __init__(self, display, x, y, control):
-        # avoid using __setattr__ before attributes exist
-        # oher solutions: https://stackoverflow.com/questions/17020115/how-to-use-setattr-correctly-avoiding-infinite-recursion
-        self.__dict__['content'] = control
-        self.__dict__['display'] = display
-        self.__dict__['x'] = x
-        self.__dict__['y'] = y
+        # bypass __setattr__() in the constructor
+        super().__setattr__('content', control)
+        super().__setattr__('display', display)
+        super().__setattr__('x', x)
+        super().__setattr__('y', y)
+
+        with open('log', 'a') as f:
+            f.write(str(self.__dict__))
+            f.write('\n')
+            f.write(str(self.content))
+            f.write('\n')
+        
 
     def update(self, dt):
         self.content.update(dt)
@@ -140,13 +146,16 @@ class Box:
     # redirect properties to the boxed Control
 
     def __getattr__(self, key):
+        # tested
         if key in self.__dict__:
-            return super().__getattr__(key)
-        return self.content.__getattr__(key)
+            return self.__dict__[key]
+        return self.content.__getattribute__(key)
 
     def __setattr__(self, key, val):
-        # TODO: see if Box init constructor is redirected too
+        # if the attribute is defined for the Box wrapper,
+        # modify it. Else, redirect to the wrapped Control
         if key in self.__dict__:
-            return super().__setattr__(key, val)
-        return self.content.__setattr__(key, val)
+            object.__setattr__(self, key, val)
+        else:
+            self.content.__setattr__(key, val)
 
