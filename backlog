@@ -1,11 +1,48 @@
+
+first major update:
+-implement a basic tool with the current assets
+-use menus for inputs
+
+
+choice: key/value store editor for json/yaml
+needed controls:
+-dynamic list
+-name input (use default event handler)
+-node tree level cursor and element (node) selector
+-menu (add new value, display controls,...)
+-node navigation
+
+currently doing:
+event subscriber hook (to add activity-level event handlers)
+
+
+
+useful activity ideas:
+-(?) editor
+-file browser
+-db editor (multi-file based storage, with indexes, pointers,...)
+-key/value store manager
+(json ?)
+-graphical tilemap editor
+-code editor (too complex) (markdown,...)
+-REPL (same)
+-CLI feature browser (too long, but actually useful)
+(ex: openssl -> rsautil? rsagen? pkey? -> 2048,...)
+-> output the command, either in a file or in the shell
+
+
+
+
+
 add Control.placeat(screen, x, y) to Box Controls
+
 
 
 control ideas:
 (with Menu done, and used as a base)
 -PageMenu (multiple pages, but no key binding)
 -ChoiceMenu (meant to use indexes as hotkeys and paginate to use 0-9)
--FileNav (file menu)
+-FileNav (file explorer menu)
 -Display (dynamic text label)
 (framerate, command sequence input)
 -auto-complete input (with Trie or equivalent)
