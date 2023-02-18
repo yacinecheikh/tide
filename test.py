@@ -72,7 +72,7 @@ class App:
 
         #self.view.move(0, 0)
         #self.screen = screen
-        self.statestack = []
+        self.stack = []
         self.activity = None
         self.running = False
 
