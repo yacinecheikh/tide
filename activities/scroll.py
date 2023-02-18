@@ -8,7 +8,7 @@ class Scrollable(Activity):
     def __init__(self, *args):
         super().__init__(*args)
 
-        self.keyboard.load(bindings)
+        self.keyboard.parse(bindings)
 
         w = self.screen.w
         h = self.screen.h

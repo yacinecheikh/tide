@@ -14,7 +14,7 @@ class Editor(Activity):
         super().__init__(*args)
         self.ast = Ast()
 
-        self.keyboard.load(edit_bindings)
+        self.keyboard.parse(edit_bindings)
 
 
         root = Node()
