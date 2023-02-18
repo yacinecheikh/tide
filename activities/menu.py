@@ -8,7 +8,7 @@ class MenuNav(Activity):
     def __init__(self, *args):
         super().__init__(*args)
 
-        self.keyboard.load(bindings)
+        self.keyboard.parse(bindings)
         # hook for custom key bindings
         # instead of using the bindings.py module, local bindings can be set this way
         """
