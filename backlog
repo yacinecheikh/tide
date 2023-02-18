@@ -1,3 +1,6 @@
+todo: change q exit code to activity.quit(), and add activity stack
+
+
 
 first major update:
 -implement a basic tool with the current assets
@@ -14,6 +17,11 @@ needed controls:
 
 currently doing:
 event subscriber hook (to add activity-level event handlers)
+api:
+@activity.kb.on('k')
+activity.kb.on('sequence', menu.select)
+activity.kb.parent = app.kb
+(app.activity.kb.extend(app.kb)
 
 
 
