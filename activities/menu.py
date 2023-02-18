@@ -1,7 +1,7 @@
 from activities.base import Activity
 from ui import Window, Box
 from controls import Text, Menu
-from bindings import menu as bindings
+from bindings.menu import bindings
 
 
 class MenuNav(Activity):

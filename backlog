@@ -1,6 +1,13 @@
 todo: change q exit code to activity.quit(), and add activity stack
 
 
+todo: rewrite tests to use key bindings defined in bindings/<activity>.py/bindings instead of bindings.py/<activity>
+
+todo: rewrite actions.py like bindings.py
+(use lambdas as much as possible)
+(rename action to something else to avoid activity)
+
+
 
 first major update:
 -implement a basic tool with the current assets
@@ -16,7 +23,8 @@ needed controls:
 -node navigation
 
 currently doing:
-event subscriber hook (to add activity-level event handlers)
+-event subscribe hook (to add activity-level event handlers)
+-app-level keyboard events
 api:
 @activity.kb.on('k')
 activity.kb.on('sequence', menu.select)

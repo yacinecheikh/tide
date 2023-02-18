@@ -46,10 +46,13 @@ try:
     from ast import Ast, Node
     import styles
     #from view import Display, Camera
-    from activities.editor import Editor
-    from activities.windows import Windows
-    from activities.scroll import Scrollable
+    #from activities.editor import Editor
+    #from activities.windows import Windows
+    #from activities.scroll import Scrollable
     from activities.menu import MenuNav
+
+    from keyboard import KeyInterpreter
+    from bindings.app import bindings
 
 except Exception as e:
     quit(screen)
@@ -75,6 +78,10 @@ class App:
         self.stack = []
         self.activity = None
         self.running = False
+
+
+        self.keyboard = KeyInterpreter(self)
+        self.keyboard.parse(bindings)
 
 
 
