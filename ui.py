@@ -127,13 +127,6 @@ class Box:
         super().__setattr__('x', x)
         super().__setattr__('y', y)
 
-        with open('log', 'a') as f:
-            f.write(str(self.__dict__))
-            f.write('\n')
-            f.write(str(self.content))
-            f.write('\n')
-        
-
     def update(self, dt):
         self.content.update(dt)
 
