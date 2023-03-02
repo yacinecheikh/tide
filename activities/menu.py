@@ -32,20 +32,20 @@ class MenuNav(Activity):
 
 
         kb = self.keyboard
-        kb.on(KEY_UP, self.menu.up)
-        kb.on(KEY_DOWN, self.menu.down)
-        kb.on('\n', self.menu.select)
+        kb.on(KEY_UP, self.up)
+        kb.on(KEY_DOWN, self.down)
+        kb.on('\n', self.select)
 
     def render(self):
         super().render()
 
-    def up(self):
+    def up(self, app):
         self.items['menu'].content.up()
     
-    def down(self):
+    def down(self, app):
         self.items['menu'].content.down()
 
-    def select(self):
+    def select(self, app):
         choice = self.items['menu'].content.select()
         self.items['chosen'].content = choice
 
