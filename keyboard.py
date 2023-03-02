@@ -150,12 +150,12 @@ class KeyInterpreter:
     def on(self, *args):
         # 2 syntaxes
         # kb.on('seq' curses.KEY_DOWN, 'uence', callback)
-        # @kb.on('seq\nuence') ...
+        # @kb.on('sequence') ...
         decorator = not isinstance(args[-1], Callable)
         if decorator:
-            parts = args[:-1]
-        else:
             parts = args
+        else:
+            parts = args[:-1]
         sequence = []
         for part in parts:
             if isinstance(part, int):

@@ -1,5 +1,8 @@
 todo: change q exit code to activity.quit(), and add activity stack
 
+test: use @app.keyboard.on(sequence) to describe bindings and actions at the same time if possible
+(dynamic import ? should wrap in a function to call multiple times)
+
 
 todo: rewrite tests to use key bindings defined in bindings/<activity>.py/bindings instead of bindings.py/<activity>
 
