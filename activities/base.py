@@ -6,7 +6,7 @@ from ui import ScreenWindow
 class Activity:
     def __init__(self, app):
         self.app = app
-        self.keyboard = KeyInterpreter(app)
+        self.keyboard = KeyInterpreter()
         self.keyboard.extend(app.keyboard)
         # boxed controls
         self.items = {}

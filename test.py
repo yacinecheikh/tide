@@ -80,8 +80,9 @@ class App:
         self.running = False
 
 
-        self.keyboard = KeyInterpreter(self)
-        self.keyboard.parse(bindings)
+        self.keyboard = KeyInterpreter()
+        self.keyboard.on('q', self.quit)
+        #self.keyboard.parse(bindings)
 
 
 
@@ -146,6 +147,10 @@ class App:
             self.screen.erase()
             self.activity.render()
             self.screen.refresh()
+
+
+    def quit(self):
+        self.running = False
 
     def log(self, msg):
         with open('log', 'a') as f:

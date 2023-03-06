@@ -43,18 +43,15 @@ class KeyInterpreter:
 
     To allow curses special key constants, characters are encoded as numbers (ord(ch))
     """
-    def __init__(self, app):
-        self.app = app
+    def __init__(self):
         # Trie
         self.bindings = {}
         # sub Trie
         self.state = self.bindings
 
         self.sequence = []
-        self.break_sequence = None  # callback
-
-        # event redirection
-        self.redirect = None
+        # default behaviour when sequence is interrupted
+        self.break_sequence = lambda: None
 
         # debug
         # use to produce warnings about conflicts
@@ -103,26 +100,20 @@ class KeyInterpreter:
         # TODO: remove after tests
         assert isinstance(ch, int)
 
-        # redirect events
-        if self.redirect is not None:
-            self.redirect.execute(ch)
-            return
-
         self.sequence.append(ch)
         action = self.state.get(ch)
         if isinstance(action, dict):
             # nested binding
             self.state = action
         elif isinstance(action, Callable):
-            action(self.app)
+            action()
             # reset state
             self.state = self.bindings
             self.sequence = []
         elif action is None:
-            if self.break_sequence is not None:
-                self.break_sequence(self.app)
-                self.state = self.bindings
-                self.sequence = []
+            self.break_sequence()
+            self.state = self.bindings
+            self.sequence = []
 
 
     # import bindings
