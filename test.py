@@ -47,7 +47,7 @@ try:
     import styles
     #from view import Display, Camera
     #from activities.editor import Editor
-    #from activities.windows import Windows
+    from activities.windows import Windows
     from activities.scroll import Scrollable
     from activities.menu import MenuNav
 
@@ -81,6 +81,7 @@ class App:
 
 
         # load app-level events
+        # typically, these can be used for global interruptions (pause the current activity and start a new one, abort and quit,...)
         self.keyboard = KeyInterpreter()
         #self.keyboard.on('q', self.quit)
 
@@ -179,9 +180,9 @@ class App:
 def main(screen):
 
     app = App(screen)
-    #app.run(Windows(app))
+    app.run(Windows(app))
     #app.run(Editor(app))
-    app.run(Scrollable(app))
+    #app.run(Scrollable(app))
     #app.run(MenuNav(app))
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...

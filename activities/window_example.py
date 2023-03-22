@@ -8,6 +8,11 @@ class Windows(Activity):
         super().__init__(*args)
         self.screen = ScreenWindow(self.app.screen)
 
+        # event definition
+        kb = self.keyboard
+        kb.on('q', self.quit)
+
+
         # template code for split coordinates
         x, y, w, h = 0, 0, self.screen.w // 2, self.screen.h // 2
         self.topleft = Window(self.screen, x, y, w, h)
