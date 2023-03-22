@@ -1,12 +1,12 @@
-in progress:
-keyboard: remove binding dictionary and actions.py
-(use decorators and dynamic callbacks instead)
-
-convention: to implement event-behaviour inheritance, inherit from parent Activity (to automatically load events)
 
 todo: abstract the trie datastructure (and use ord(ch) from the start)
 (TODO: simplify the parsing code for events ? no need for all the shortcuts in the dicts)
 
+
+
+
+
+convention: to implement event-behaviour inheritance, inherit from parent Activity (to automatically load events)
 
 todo: rewrite tests to use key bindings defined in bindings/<activity>.py/bindings instead of bindings.py/<activity>
 
@@ -32,14 +32,7 @@ needed controls:
 -node navigation
 
 currently doing:
--event subscribe hook (to add activity-level event handlers)
--app-level keyboard events
-api:
-@activity.kb.on('k')
-activity.kb.on('sequence', menu.select)
-activity.kb.parent = app.kb
-(app.activity.kb.extend(app.kb)
-
+-refactor and abstract Trie data structure to simplify the event interpreter
 
 
 useful activity ideas:

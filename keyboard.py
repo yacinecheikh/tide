@@ -11,7 +11,7 @@ from ast import Note
 
 # TODO: replace by special entry in dictionnary,
 # for contextual sequence break behaviour override
-from actions import break_sequence
+#from actions import break_sequence
 
 
 # TODO: convention: ESC is always used to break sequences

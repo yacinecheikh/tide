@@ -59,6 +59,9 @@ class Editor(Activity):
             self.keyboard.execute(ch)
             self.input.text += str(ch)
 
+
+    # currently not working, just saved from the global actions
+
     def print(self):
         ch = self.keyboard.sequence[0]
         # can only be called when in editor state
@@ -83,4 +86,12 @@ class Editor(Activity):
         # only applies to Editor activity
         #app.activity.ast.root.add(Note(str(chars) + ' not found'))
 
+    def move_right(app):
+        cursors = app.activity.ast.selected
+        for node in cursors:
+            app.state.ast.unselect(node)
+            if len(node.children):
+                app.activity.ast.select(node.children[0])
+            else:
+                app.activity.ast.select(node)
 

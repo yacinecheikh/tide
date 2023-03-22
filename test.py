@@ -52,7 +52,6 @@ try:
     from activities.menu import MenuNav
 
     from keyboard import KeyInterpreter
-    from bindings.app import bindings
 
 except Exception as e:
     quit(screen)
@@ -180,10 +179,10 @@ class App:
 def main(screen):
 
     app = App(screen)
-    #app.run(Windows(app))
+    app.run(Windows(app))
     app.run(Editor(app))
-    #app.run(Scrollable(app))
-    #app.run(MenuNav(app))
+    app.run(Scrollable(app))
+    app.run(MenuNav(app))
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
 
