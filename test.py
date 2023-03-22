@@ -46,7 +46,7 @@ try:
     from ast import Ast, Node
     import styles
     #from view import Display, Camera
-    #from activities.editor import Editor
+    from activities.editor import Editor
     from activities.windows import Windows
     from activities.scroll import Scrollable
     from activities.menu import MenuNav
@@ -180,8 +180,8 @@ class App:
 def main(screen):
 
     app = App(screen)
-    app.run(Windows(app))
-    #app.run(Editor(app))
+    #app.run(Windows(app))
+    app.run(Editor(app))
     #app.run(Scrollable(app))
     #app.run(MenuNav(app))
 
