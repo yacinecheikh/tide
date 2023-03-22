@@ -1,7 +1,14 @@
 todo: change q exit code to activity.quit(), and add activity stack
 
+in progress:
+keyboard: remove binding dictionary and actions.py
+(use decorators and dynamic callbacks instead)
+
+
 test: use @app.keyboard.on(sequence) to describe bindings and actions at the same time if possible
-(dynamic import ? should wrap in a function to call multiple times)
+behaviour inheritance is done through code instead of data duplication
+
+(TODO: simplify the parsing code for events ? no need for all the shortcuts in the dicts)
 
 
 todo: rewrite tests to use key bindings defined in bindings/<activity>.py/bindings instead of bindings.py/<activity>

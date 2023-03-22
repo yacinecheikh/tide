@@ -39,13 +39,13 @@ class MenuNav(Activity):
     def render(self):
         super().render()
 
-    def up(self, app):
+    def up(self):
         self.items['menu'].content.up()
     
-    def down(self, app):
+    def down(self):
         self.items['menu'].content.down()
 
-    def select(self, app):
+    def select(self):
         choice = self.items['menu'].content.select()
         self.items['chosen'].content = choice
 
