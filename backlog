@@ -1,5 +1,3 @@
-todo: change q exit code to activity.quit(), and add activity stack
-
 in progress:
 keyboard: remove binding dictionary and actions.py
 (use decorators and dynamic callbacks instead)

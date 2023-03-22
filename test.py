@@ -80,12 +80,15 @@ class App:
         self.running = False
 
 
+        # load app-level events
         self.keyboard = KeyInterpreter()
-        self.keyboard.on('q', self.quit)
+        #self.keyboard.on('q', self.quit)
+
+        # deprecated
         #self.keyboard.parse(bindings)
 
 
-
+    # events
     def getch(self):
         "wrapper for curses.screen.getch()"
         ch = self.screen.getch()
@@ -94,12 +97,14 @@ class App:
         return ch
 
 
+    # update
     def render(self):
         self.screen.erase()
         self.activity.render()
         self.screen.refresh()
         #self.view.update()
 
+    # main loop
     def run(self, activity):
         #self.state = Editor(self)
         self.activity = activity
@@ -148,6 +153,17 @@ class App:
             self.activity.render()
             self.screen.refresh()
 
+
+    # app life cycle
+    def push(self, activity):
+        self.stack.append(self.activity)
+        self.activity = activity
+
+    def pop(self):
+        if len(self.stack):
+            self.activity = self.stack.pop()
+        else:
+            self.quit()
 
     def quit(self):
         self.running = False

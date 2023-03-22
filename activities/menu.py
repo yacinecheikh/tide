@@ -35,6 +35,7 @@ class MenuNav(Activity):
         kb.on(KEY_UP, self.up)
         kb.on(KEY_DOWN, self.down)
         kb.on('\n', self.select)
+        kb.on('q', self.quit)
 
     def render(self):
         super().render()

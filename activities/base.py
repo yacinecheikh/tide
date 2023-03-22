@@ -36,3 +36,7 @@ class Activity:
         # -> use Boxes to use a window as screen and avoid explicit repetition when rendering
         for x in self.items.values():
             x.render()
+
+
+    def quit(self):
+        self.app.pop()
