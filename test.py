@@ -48,7 +48,7 @@ try:
     #from view import Display, Camera
     #from activities.editor import Editor
     #from activities.windows import Windows
-    #from activities.scroll import Scrollable
+    from activities.scroll import Scrollable
     from activities.menu import MenuNav
 
     from keyboard import KeyInterpreter
@@ -181,8 +181,8 @@ def main(screen):
     app = App(screen)
     #app.run(Windows(app))
     #app.run(Editor(app))
-    #app.run(Scrollable(app))
-    app.run(MenuNav(app))
+    app.run(Scrollable(app))
+    #app.run(MenuNav(app))
 
     # TODO: add get_style() and check for situational styles like disabled, selected, bookmarked,...
 

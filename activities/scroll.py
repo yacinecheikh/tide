@@ -1,14 +1,20 @@
+from curses import KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN
+
 from activities.base import Activity
 from ui import Window, Box
 from controls import Text
-from bindings import scroll as bindings
 
 
 class Scrollable(Activity):
     def __init__(self, *args):
         super().__init__(*args)
 
-        self.keyboard.parse(bindings)
+        kb = self.keyboard
+        kb.on('q', self.quit)
+        kb.on(KEY_UP, self.up)
+        kb.on(KEY_DOWN, self.down)
+        kb.on(KEY_LEFT, self.left)
+        kb.on(KEY_RIGHT, self.right)
 
         w = self.screen.w
         h = self.screen.h
@@ -21,5 +27,18 @@ class Scrollable(Activity):
 
     def render(self):
         super().render()
+
+    
+    def up(self):
+        self.screen.move(0, -1)
+
+    def down(self):
+        self.screen.move(0, 1)
+
+    def left(self):
+        self.screen.move(-1, 0)
+
+    def right(self):
+        self.screen.move(1, 0)
 
 
