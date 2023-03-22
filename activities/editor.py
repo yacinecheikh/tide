@@ -18,6 +18,7 @@ class Editor(Activity):
         # debug-print, debug-debug
         kb.on('dp', self.print)
         kb.on('ic', self.insert_comment)
+        kb.break_sequence = lambda: self.break_sequence()
 
 
         root = Node()
@@ -69,3 +70,17 @@ class Editor(Activity):
             node.add(note)
             self.ast.unselect(node)
             self.ast.select(note)
+
+    def break_sequence(self):
+        "called when a sequence is cut by an undefined character"
+        seq = self.app.activity.keyboard.sequence
+        chars = []
+        for ch in seq:
+            if 97 <= ch <= 122:
+                chars.append(chr(ch))
+            else:
+                chars.append(ch)
+        # only applies to Editor activity
+        #app.activity.ast.root.add(Note(str(chars) + ' not found'))
+
+
