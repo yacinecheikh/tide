@@ -1,26 +1,31 @@
+"""
+stateless trie
 
-# TODO: partial queries (use the current state to move around nodes)
+used to handle input chord bindings
+"""
 
 class trie:
-    "wrapper interface"
+    "wrapper interface over recursive Trie"
     def __init__(self):
         self.root = Trie()
         # hooks, not needed
+        """
         self.state = self.root
         self.sequence = []  # path to the current state
+        """
 
     def set(self, key, value):
-        # format the key for recursion
-        if isinstance(key, int):
-            key = [key]
-        elif isinstance(key, str):
-            key = [ord(ch) for ch in key]
+        # keys are stored in reverse order
         #key.reverse()
 
-        key = self.parse(key)
-        overrides = self.root.add(key, value)
-        return overrides
+        key = self.format(key)
+        self.root.set(key, value)
 
+    def get(self, key):
+        key = self.format(key)
+        return self.root.get(key)
+
+    """
     def get(self, ch):
         "react to a single character"
         ch = self.parse(ch)
@@ -37,9 +42,11 @@ class trie:
             self.state = self.root
             self.sequence = []
             return None
+    """
 
-    def parse(self, key):
-        # convert to integer sequence
+    def format(self, key):
+        # convert to integer sequence for recursive queries
+        # query keys are destroyed in the process
         if isinstance(key, int):
             key = [key]
         if isinstance(key, str):
@@ -48,58 +55,35 @@ class trie:
 
 
 class Trie:
-    """internal, optimized, recursive data structure
+    """
+    internal recursive data structure
 
-    nodes can be either values or sub-tries (check type)
-    on path conflicts, remove the previous record and return the path and the contents of the erased record
+    silently overrides older definitions
     """
     def __init__(self):
         self.children = {}
+        self.value = None
 
-    def add(self, sequence, value, path=None, overrides=None):
-        # tracking override locations
-        path = path or []
-        overrides = overrides or []
-
-        ch = sequence.pop()
-        if len(sequence):
-            if ch in self.children:
-                # ch is defined as a value
-                if not isinstance(self.children[ch], Trie):
-                    # override
-                    removed = self.children[ch]
-                    overrides.append((path.copy(), removed))
-                    self.children[ch] = Trie()
-            else:
-                self.children[ch] = Trie()
-            # recursion
-            overrides.extend(self.children[ch].add(sequence, value, path))
-            return overrides
+    def set(self, path, value):
+        if path:
+            ch = path.pop()
+            self.children.setdefault(ch, Trie())
+            self.children[ch].set(path, value)
         else:
-            if ch in self.children:
-                # override
-                removed = self.children[ch]
-                overrides.append((path.copy(), removed))
-            self.children[ch] = value
+            self.value = value
 
-        return overrides
-
-    def get(self, sequence):
-        "None if the value is not defined"
-        ch = sequence.pop()
-        if ch not in self.children:
-            # failed query
-            return
-        elt = self.children[ch]
-        if len(sequence):
-            return (elt if isinstance(elt, Trie)
-                    else None)
+    def get(self, path):
+        # None is used for undefined values
+        if path:
+            ch = path.pop()
+            node = self.children.get(ch)
+            if node is not None:
+                return node.get(path)
         else:
-            # elt can be a Trie (partial query)
-            return elt
+            return self.value
 
 t = trie()
 
-for x in range(10):
+for x in range(100):
     t.set(str(x), x)
     print(t.get(str(x)))
