@@ -34,13 +34,35 @@ class trie(dict):
             position = position[ch]
         position['value'] = value
 
+    def items(self, position=None, prefix=None):
+        "for key, val in trie.items() generator"
+        # recursive traversal, starting at self
+        position = position or self
+        prefix = prefix or []
+        # can't use items()
+        for key in position.keys():
+            if key == 'value':
+                value = position['value']
+                yield prefix, value
+            else:
+                # recursion
+                prefix.append(key)
+                yield from self.items(
+                        position=position[key],
+                        prefix=prefix)
+                prefix.pop()
 
-    def items(self):
-        # TODO: easily importable (key, value) generator
-        pass
 
+# TODO: move tests
+"""
 t = trie()
 
 for x in range(100):
     t.write(list(str(x)), x)
     print(t.read(list(str(x))))
+
+t.write([], "test")
+
+for key, val in t.items():
+    print(val, key)
+"""
