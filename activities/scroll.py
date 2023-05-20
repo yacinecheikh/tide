@@ -10,11 +10,11 @@ class Scrollable(Activity):
         super().__init__(*args)
 
         kb = self.keyboard
-        kb.on('q', self.quit)
-        kb.on(KEY_UP, self.up)
-        kb.on(KEY_DOWN, self.down)
-        kb.on(KEY_LEFT, self.left)
-        kb.on(KEY_RIGHT, self.right)
+        kb.on(self.quit, 'q')
+        kb.on(self.up, KEY_UP)
+        kb.on(self.down, KEY_DOWN)
+        kb.on(self.left, KEY_LEFT)
+        kb.on(self.right, KEY_RIGHT)
 
         w = self.screen.w
         h = self.screen.h

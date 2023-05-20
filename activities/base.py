@@ -7,7 +7,7 @@ class Activity:
     def __init__(self, app):
         self.app = app
         self.keyboard = KeyInterpreter()
-        self.keyboard.extend(app.keyboard)
+        self.keyboard.extend(app.keyboard.bindings)
         # boxed controls
         self.items = {}
         # app.screen is the terminal screen

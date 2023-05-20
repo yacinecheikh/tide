@@ -31,10 +31,10 @@ class MenuNav(Activity):
 
 
         kb = self.keyboard
-        kb.on(KEY_UP, self.up)
-        kb.on(KEY_DOWN, self.down)
-        kb.on('\n', self.select)
-        kb.on('q', self.quit)
+        kb.on(self.up, KEY_UP)
+        kb.on(self.down, KEY_DOWN)
+        kb.on(self.select, '\n')
+        kb.on(self.quit, 'q')
 
     def render(self):
         super().render()

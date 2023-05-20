@@ -10,7 +10,7 @@ class Windows(Activity):
 
         # event definition
         kb = self.keyboard
-        kb.on('q', self.quit)
+        kb.on(self.quit, 'q')
 
 
         # template code for split coordinates

@@ -14,10 +14,10 @@ class Editor(Activity):
         self.ast = Ast()
 
         kb = self.keyboard
-        kb.on('q', self.quit)
+        kb.on(self.quit, 'q')
         # debug-print, debug-debug
-        kb.on('dp', self.print)
-        kb.on('ic', self.insert_comment)
+        kb.on(self.print, 'dp')
+        kb.on(self.insert_comment, 'ic')
         kb.break_sequence = lambda: self.break_sequence()
 
 

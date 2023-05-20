@@ -12,7 +12,7 @@ from typing import Callable
 # TODO: remove using this
 from ast import Note
 
-from lib import trie
+from lib.trie import trie
 
 # TODO: replace by special entry in dictionnary,
 # for contextual sequence break behaviour override
@@ -37,7 +37,7 @@ class KeyInterpreter:
 
     def define(self, seq, callback):
         "simple ascii sequence -> callback"
-        self.bindings.set(seq, callback)
+        self.bindings.write(seq, callback)
 
     def execute(self, ch):
         assert isinstance(ch, int)
@@ -49,7 +49,7 @@ class KeyInterpreter:
         else:
         """
         self.sequence.append(ch)
-        if (callback := self.bindings.get(self.sequence)) is not None:
+        if (callback := self.bindings.read(self.sequence)) is not None:
             callback()
             self.sequence = []
 
@@ -91,7 +91,7 @@ def convert(sequence):
 
 
 
-class KeyInterpreter:
+class KeyInterpreter2:
     """
     Input sequence interpreter (state machine)
 
