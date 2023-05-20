@@ -46,6 +46,7 @@ class trie:
 
     def format(self, key):
         # convert to integer sequence for recursive queries
+        # integers are used to describe non-alpha keys
         # query keys are destroyed in the process
         if isinstance(key, int):
             key = [key]
