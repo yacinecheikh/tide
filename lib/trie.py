@@ -43,7 +43,9 @@ class trie(dict):
         for key in position.keys():
             if key == 'value':
                 value = position['value']
-                yield prefix, value
+                key = prefix.copy()
+                key.reverse()
+                yield key, value
             else:
                 # recursion
                 prefix.append(key)
