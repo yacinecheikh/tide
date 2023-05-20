@@ -5,9 +5,7 @@ used to handle input chord bindings
 """
 
 
-
-# dict-based storage
-class trie:
+class trie(dict):
     """
     dict-based Trie
 
@@ -16,21 +14,20 @@ class trie:
     for maintainers:
         keys are encoded in reverse order because muh efficiency
     """
-    def __init__(self):
-        self.storage = {}
     
-    def get(self, key):
+    # can't use get/set
+    def read(self, key):
         path = key.copy()
-        position = self.storage
+        position = self  # self is the root dict
         while path:
             position = position.get(path.pop())
             if position is None:
                 return
         return position.get('value')
 
-    def set(self, key, value):
+    def write(self, key, value):
         path = key.copy()
-        position = self.storage
+        position = self
         while path:
             ch = path.pop()
             position.setdefault(ch, {})
@@ -45,5 +42,5 @@ class trie:
 t = trie()
 
 for x in range(100):
-    t.set(list(str(x)), x)
-    print(t.get(list(str(x))))
+    t.write(list(str(x)), x)
+    print(t.read(list(str(x))))

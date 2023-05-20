@@ -1,3 +1,6 @@
+todo: simplify windows split with vertical and horizontal split (with size ratio) instead of giving exact coordinates
+
+
 
 todo: abstract the trie datastructure (and use ord(ch) from the start)
 (TODO: simplify the parsing code for events ? no need for all the shortcuts in the dicts)
