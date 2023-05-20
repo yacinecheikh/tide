@@ -22,8 +22,12 @@ class trie(dict):
         while path:
             position = position.get(path.pop())
             if position is None:
-                return
-        return position.get('value')
+                return False
+
+        val = position.get('value')
+        # return a value or a boolean to indicate the presence of deeper values
+        return (val if val is not None
+                else len(position.keys()) - 1 > 0)
 
     def write(self, key, value):
         path = key.copy()
