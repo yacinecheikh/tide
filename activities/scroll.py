@@ -2,7 +2,7 @@ from curses import KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN
 
 from activities.base import Activity
 from ui import Window, Box
-from controls import Text
+from controls.base import Text
 
 
 class Scrollable(Activity):

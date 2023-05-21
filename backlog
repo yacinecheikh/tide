@@ -6,10 +6,6 @@ convention: to implement event-behaviour inheritance, inherit from parent Activi
 
 todo: rewrite tests to use key bindings defined in bindings/<activity>.py/bindings instead of bindings.py/<activity>
 
-todo: rewrite actions.py like bindings.py
-(use lambdas as much as possible)
-(rename action to something else to avoid activity)
-
 todo: separate Application interface to allow windows to have their own inner activities (the subwindow should be in an app-like mock)
 
 

@@ -1,18 +1,21 @@
+"""
+multi-purpose primitives
+
+Nodes are used for DOM-like structured data
+Nodes should be subclassed to implement more behaviour, like syntax tree editing
+
+Texts are multipart areas that render (static) data.
+Texts can handle color and can be dynamically changed their data.
+Texts are currently very bloat, but they provide an api to render about anything.
+Internally, Texts use Lines of (style, text) to model a graphical rendering. This means Texts can have gaps and different styles
+"""
+
+
 import styles
 import settings
 
+from ui import Control
 
-from ui import Window, Control
-
-#from color import pair, grey, lightgrey, black, white
-#import color as c
-
-
-"""
-Core rendering primitives
-Nodes are used for DOM-like structured data
-Texts contain formatted string rendering data, and are used to implement graphical descriptions of rendered objects
-"""
 
 # can be extended for usage in AST, file navigation menus,...
 # inherited control should manage their own indent
@@ -29,12 +32,6 @@ class Node(Control):
     def __init__(self, indent = settings.indent):
         # DOM-like tree
         self.parent = None
-        # name ideas instead of children
-        """
-        self.contents = []
-        self.items = []
-        self.data = []
-        """
         self.children = []
 
         # default setting
@@ -60,12 +57,6 @@ class Node(Control):
             height += h
             width = max(w, width)
         return width, height
-        """ # line-only rendering
-        c = 0
-        for item in self.children:
-            c += item.render(screen, x + self.indent, y + c)
-        return c
-        """
 
 
 class Text(Control):
@@ -156,112 +147,3 @@ class Text(Control):
             height += 1
         return width, height
 
-
-"""
-
-higher level controls (rely on Node, Text and Window)
-
-"""
-
-
-class ItemList(Node):
-    def __init__(self):
-        super().__init__(indent = 0)
-    
-
-class Menu(ItemList):
-    "chosable items"
-    def __init__(self):
-        super().__init__()
-        self.callbacks = []
-        self.cursor = 0
-        self.cursor_text = Text(' <-')
-
-        self.text = None
-
-    def gentext(self):
-        # cursor after first line
-        # pb: elements cannot be converted to Text
-        # (especially if they change over time)
-        pass
-
-    def render(self, screen, x, y):
-        # w, h rendering
-        height = 0
-        width = 0
-        for i in range(len(self.children)):
-            item = self.children[i]
-            w, h = item.render(screen, x + self.indent, y + height)
-            if self.cursor == i:
-                self.cursor_text.render(screen, x + w + self.indent, y + height)
-            height += h
-            width = max(w, width)
-        return width, height
-
-    def select(self):
-        return self.children[self.cursor]
-
-    def down(self):
-        self.cursor += 1
-        if self.cursor >= len(self.children):
-            self.cursor = 0
-
-    def up(self):
-        self.cursor -= 1
-        if self.cursor < 0:
-            self.cursor = len(self.children) - 1
-
-
-class FileNav:
-    pass
-
-
-class Notification(Control):
-    # use a dedicated subwindow to delimit borders
-    def __init__(self, window):
-        self.window = window
-        self.queue = []
-
-    def add(self, control):
-        pass
-
-
-
-def Notifications(Widget):
-    # TODO: when the camera moves, keep the notificatioss on the same spot ?
-    # (ex: in a menu on the right
-    # requires having a Display which does not fill the screen
-    def __init__(self):
-        super().__init__(self)
-        self.rendering = []
-        self.height = 2  # elements
-        # cannot predict an element will be too long
-        # any element could be 10 lines long and fill the screen
-        # 
-        self.lines = 3  # max lines before stopping
-        self.duration = 3  # seconds
-
-    def add(self, widget):
-        self.queue.append({
-            'time': 0,
-            'element': widget,
-        })
-
-    def update(self, dt):
-        for x in self.queue[:self.height][::-1]:
-            # display the 3 first (lowest) nodes, from the top
-            x['time'] += dt
-            if x['time'] > 3:
-                self.rendering.remove(x)
-        # move from queue 
-        while len(self.rendering) < 1 and len(self.queue):
-            self.rendering.append({
-                'time': 0,
-                'element': self.queue.pop(0)
-            })
-
-
-    def render(self, screen, x, y):
-        # x, y is for custom rendering
-        # ignore when None ?
-        pass

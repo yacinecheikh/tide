@@ -1,6 +1,7 @@
 from activities.base import Activity
 from ui import Window, Box
-from controls import Text, Menu
+from controls.base import Text
+from controls.menu import Menu
 
 from curses import KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_ENTER
 
