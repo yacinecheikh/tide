@@ -1,10 +1,14 @@
+from curses import KEY_DOWN, KEY_UP
+
+
 from controls.base import Node, Text
+from keyboard import KeyInterpreter
 
 
 class ItemList(Node):
     def __init__(self):
         super().__init__(indent = 0)
-    
+
 
 class Menu(ItemList):
     "chosable items"
@@ -47,6 +51,17 @@ class Menu(ItemList):
         self.cursor -= 1
         if self.cursor < 0:
             self.cursor = len(self.children) - 1
+
+
+
+class MenuEvents(KeyInterpreter):
+    def __init__(self, menu, confirm, cancel):
+        super().__init__()
+        self.on(lambda: confirm(menu.select()), '\n')
+        self.on(cancel, 'q')
+        self.on(menu.down, KEY_DOWN)
+        self.on(menu.up, KEY_UP)
+
 
 
 class FileNav:
