@@ -2,13 +2,6 @@ todo: simplify windows split with vertical and horizontal split (with size ratio
 
 
 
-todo: abstract the trie datastructure (and use ord(ch) from the start)
-(TODO: simplify the parsing code for events ? no need for all the shortcuts in the dicts)
-
-
-
-
-
 convention: to implement event-behaviour inheritance, inherit from parent Activity (to automatically load events)
 
 todo: rewrite tests to use key bindings defined in bindings/<activity>.py/bindings instead of bindings.py/<activity>
