@@ -2,7 +2,7 @@ from curses import KEY_LEFT, KEY_RIGHT, KEY_UP, KEY_DOWN
 
 from activities.base import Activity
 from ui import Window, Box
-from controls.base import Text
+from controls.base import Line
 
 
 class Scrollable(Activity):
@@ -22,7 +22,7 @@ class Scrollable(Activity):
         self.right = Window(self.screen, w, 0, w - w // 2, h)
 
         abc = 'abcdefghijklmnopqrstuvwxyz' * 3
-        t = Text(abc)
+        t = Line(abc)
         self.items['left-text'] = Box(self.left, 0, 0, t)
 
     def render(self):
