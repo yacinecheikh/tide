@@ -80,22 +80,25 @@ class Line(Control):
     to change parts, you can access and edit line.parts
     """
 
-    # TODO: constructor
-    # 'text', ('text', styles.blink), 5
     def __init__(self, *parts):
-        self.style = styles.default
         self.parts = []
         for elt in parts:
             self.add(elt)
+        self.style = styles.default
 
     def add(self, element):
-        # auto-format str to (str, style)
         if isinstance(element, str):
+            # default style
             element = (element, 'default')
-        # item is (str, style) or (None, length)
+        elif isinstance(element, int):
+            # blank spaces
+            element = (None, length)
+        # (str, style) or (None, length)
         self.contents.append(element)
 
-    def render(self, screen, x, y, default_style):
+    def render(self, screen, x, y, default_style=None):
+        if default_style is None:
+            default_style = self.style
         for elt in self.contents:
             text, param = elt
             if text is None:
@@ -110,8 +113,8 @@ class Line(Control):
                 screen.write(x, y, text, style)
                 x += len(text)
 
-        # width
-        return x
+        # width, height
+        return x, y + 1
 
 
 class Text(Control):
@@ -125,37 +128,37 @@ class Text(Control):
     and the usage of complex animated, non-ascii
     or transparent parts
     """
-    # TODO: constructor styles
-    # Text()
-    # Text(style = style)
-    # Text(multiline)
-    # Text((str1, style), (str2, style),...)
-    # Text([str, (str, style), str],
-    #      [], style=styles.default)  # 1 list = 1 line
+
+    def __init__(self, *lines):
+        self.style = styles.default
+        self.lines = []
+        for line in lines:
+            # ['spaced', 1, ('text', styles.blink)]
+            # -> Line
+            if not isinstance(line, Line):
+                line = Line(*line)
+            self.lines.append(line)
 
 
+    # TODO: multiline text in constructor ?
+    """
     def __init__(self, text: str, style=None):
         self.style = style or styles.default
-        # line contents are str, (str, style),
-        # or (None, length) for transparent parts
-
-
-        # TODO(maybe):
-        # the constructor only takes a single string
-        # could change later
-        # for now, Line is internal
         self.lines = []
         for line in text.split('\n'):
             self.lines.append(Text.Line(line))
+    """
 
     def add(self, content, line='append'):
+        # add a part to line <line>
+        # create as many lines as needed (1 by default)
         if line == 'append':
             line = len(self.lines)
 
         while line >= len(self.lines):
             self.lines.append(Text.Line())
 
-        # content is str, (str, style) or (None, length)
+        # content is str, (str, style) or int
         self.lines[line].add(content)
 
 
@@ -163,7 +166,7 @@ class Text(Control):
         width = 0
         height = 0
         for line in self.lines:
-            w = line.render(display, x, y, self.style)
+            w, _ = line.render(display, x, y, self.style)
             width = max(width, w)
             height += 1
         return width, height
