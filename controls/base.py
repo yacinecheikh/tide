@@ -94,12 +94,12 @@ class Line(Control):
             # blank spaces
             element = (None, length)
         # (str, style) or (None, length)
-        self.contents.append(element)
+        self.parts.append(element)
 
     def render(self, screen, x, y, default_style=None):
         if default_style is None:
             default_style = self.style
-        for elt in self.contents:
+        for elt in self.parts:
             text, param = elt
             if text is None:
                 # transparency (blank spaces)
